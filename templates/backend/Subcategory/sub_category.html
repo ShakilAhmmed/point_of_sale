@@ -1,0 +1,180 @@
+{% extends 'backend/index.html' %}
+{% block title %}Admin|SubCategory{% endblock title %}
+{% block maincontent %}
+<div class="main-content">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="pop_up btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                         Create New Sub Category
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Create New Sub Category</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                  <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form class="forms-sample" action="" method="POST">
+                                            {% csrf_token %}
+
+                                            <div class="form-group">
+                                                <label for="{{form.category_name.id_for_label}}">{{form.category_name.label}}</label>
+                                                {{form.category_name}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.category_name.errors}}</div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="{{form.sub_category_name.id_for_label}}">{{form.sub_category_name.label}}</label>
+                                                {{form.sub_category_name}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.sub_category_name.errors}}</div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="{{form.sub_category_name.id_for_label}}">{{form.sub_category_code.label}}</label>
+                                                {{form.sub_category_code}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.sub_category_code.errors}}</div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="{{form.sub_category_description.id_for_label}}">{{form.sub_category_description.label}}</label>
+                                                {{form.sub_category_description}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.sub_category_description.errors}}</div>
+                                            </div>
+
+                                              <div class="form-group">
+                                                <label for="{{form.sub_category_status.id_for_label}}">{{form.sub_category_status.label}}</label>
+                                                {{form.sub_category_status}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.sub_category_status.errors}}</div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                              </div>
+                            </div>
+                            </form>
+                          </div>
+                        </div>
+
+                       <div class="card custom_card_table">
+                            <div class="card-header row">
+                                <div class="col col-sm-3">
+                                    <div class="card-options d-inline-block">
+                                        <a href="{% url 'sub_category_pdf' %}" target="_blank"><i class="fa fa-file-pdf"></i></a>
+                                        <a href="{% url 'sub_category_pdf_download' %}" target="_blank"><i class="fa fa-download"></i></a>
+                                        <a href="{% url 'sub_export_data_csv' %}"><i class="fa fa-file-excel"></i></a>
+                                        <a href="#" id="print"><i class="fa fa-print" ></i></a>
+                                        <a href="{% url 'sub_category' %}"><i class="ik ik-rotate-cw"></i></a>
+                                        <div class="dropdown d-inline-block">
+                                            <a class="nav-link dropdown-toggle" href="#" id="moreDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-more-horizontal"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="moreDropdown">
+                                                <a class="dropdown-item" href="#">Action</a>
+                                                <a class="dropdown-item" href="#">More Action</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6">
+                                    <div class="card-search with-adv-search dropdown">
+
+                                    </div>
+                                </div>
+                                <div class="col col-sm-3">
+                                    <div class="card-options text-right">
+                                        <span class="mr-5" id="top">1 - 50 of 2,500</span>
+                                        <a href="#"><i class="ik ik-chevron-left"></i></a>
+                                        <a href="#"><i class="ik ik-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table id="advanced_table" class="table" style="width: 100% !important;">
+                                    <thead>
+                                        <tr>
+                                            <th class="nosort" width="10">
+                                                <label class="custom-control custom-checkbox m-0">
+                                                    <input type="checkbox" class="custom-control-input" id="selectall" name="" value="option2">
+                                                    <span class="custom-control-label">&nbsp;</span>
+                                                </label>
+                                            </th>
+                                            <th>Sl No</th>
+                                            <th>Category Name</th>
+                                            <th>SubCategory Name</th>
+                                            <th>Category Code</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for sub_category_data_value in sub_category_data%}
+                                        <tr>
+                                            <td>
+                                                <label class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input select_all_child" id="" name="" value="option2">
+                                                    <span class="custom-control-label">&nbsp;</span>
+                                                </label>
+                                            </td>
+                                            <td>{{forloop.counter}}</td>
+                                            <td>{{sub_category_data_value.category_name}}</td>
+                                            <td>{{sub_category_data_value.sub_category_name}}</td>
+                                            <td>{{sub_category_data_value.sub_category_code}}</td>
+                                            <td>{{sub_category_data_value.sub_category_description | slice:"20"}}</td>
+                                            <td>
+                                                {% if sub_category_data_value.sub_category_status == 'Active'  %}
+                                                    <span class="text-success"><i class="fa fa-check-circle"></i>&nbsp;{{sub_category_data_value.sub_category_status}}</span>
+                                                {% else %}
+                                                    <span class="text-danger"><i class="fa fa-times-circle"></i>&nbsp;{{sub_category_data_value.sub_category_status}}</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'sub_category_delete' sub_category_data_value.pk %}">
+                                                    <button class="btn btn-danger trash"><i class="fa fa-trash"></i></button>
+                                                </a>
+                                                <a href="{% url 'sub_category_edit' sub_category_data_value.pk %}">
+                                                    <button class="btn btn-info"><i class="fa fa-pen"></i></button>
+                                                </a>
+                                                <a href="{% url 'sub_category_status'  sub_category_data_value.pk %}">
+                                                {% if sub_category_data_value.category_status == 'Active'  %}
+                                                     <button class="btn btn-warning"><i class="fa fa-times-circle"></i></button>
+                                                {% else %}
+                                                    <button class="btn btn-success"><i class="fa fa-check-circle"></i></button>
+                                                {% endif %}
+                                                </a>
+
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+    $("#print").click(function()
+    {
+
+        var w = window.open('/backend/sub_category/pdf');
+
+        w.onload = function()
+        {
+            w.print();
+        };
+
+    });
+});
+</script>
+{% endblock maincontent %}

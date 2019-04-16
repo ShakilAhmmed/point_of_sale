@@ -1,0 +1,44 @@
+{% extends 'backend/index.html' %}
+{% block title %}Admin|Category{% endblock title %}
+{% block maincontent %}
+ <div class="main-content">
+
+                              <div class="modal-body">
+                                  <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form action="" method="POST" class="forms-sample">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label for="{{form.category_name.id_for_label}}">{{form.category_name.label}}</label>
+                                                {{form.category_name}}
+                                                <div class="text-danger mt-3" style="font-size: 14px;">{{form.category_name.errors}}</div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="{{form.category_code.id_for_label}}">{{form.category_code.label}}</label>
+                                                 {{form.category_code}}
+                                                 <div class="text-danger mt-3" style="font-size: 14px;">{{form.category_code.errors}}</div>
+                                             </div>
+                                            <div class="form-group">
+                                                <label for="{{form.category_description.id_for_label}}">{{form.category_description.label}}</label>
+                                                {{form.category_description}}
+                                                <div class="text-danger mt-3" style="font-size: 14px;">{{form.category_description.errors}}</div>
+                                            </div>
+
+                                              <div class="form-group">
+                                                <label for="{{form.category_status.id_for_label}}">{{form.category_status.label}}</label>
+                                                {{form.category_status}}
+                                                <div class="text-danger mt-3" style="font-size: 14px;">{{form.category_status.errors}}</div>
+                                            </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success mr-2">Update</button>
+                            </div>
+                             </div>
+                            </form>
+                           </div>
+
+{% endblock maincontent %}

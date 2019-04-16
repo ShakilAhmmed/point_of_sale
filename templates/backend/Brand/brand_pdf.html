@@ -1,0 +1,59 @@
+
+<html>
+    <head>
+        <title>Brand Pdf</title>
+        <style type="text/css">
+            #table{
+                padding: 3px;
+                text-align: center;
+            }
+            th{
+              background-color: #dcdde1;
+            }
+            .company{
+                text-align: center;
+                margin-top: -65px;
+            }
+        </style>
+    </head>
+    <body>
+
+    <table>
+        <tr>
+            <td style="width: 100px;"><img src="http://127.0.0.1:8000/static/admin_asset/img/auth/logo.png" height="100" alt="no"></td>
+            <td >
+                <h1 style="margin-left: 222px;">POINT OF SALE </h1>
+                <p style="margin-left: 200px;">Address:Kazipara, TMSS Road</p>
+                <p style="margin-left: 220px;">Phone:01849942053</p>
+            </td>
+        </tr>
+    </table>
+
+        <table border="1" id="table">
+            <tr>
+                <th>Sl No</th>
+                <th>Company Name</th>
+                <th>Company Code</th>
+                <th>Company Email</th>
+                <th>Company Address</th>
+                <th>Company Status</th>
+                <th>Created At</th>
+            </tr>
+            {% for brand_data_value in brand_data %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+
+                <td>{{brand_data_value.company_name}}</td>
+                <td>{{brand_data_value.company_code}}</td>
+                <td>{{brand_data_value.company_email}}</td>
+                <td>{{brand_data_value.company_address}}</td>
+                <td>{{brand_data_value.company_status}}</td>
+                <td>{{brand_data_value.created_at}}</td>
+            </tr>
+         {% endfor %}
+        </table>
+        <div style="text-align: center;margin-top: 10px;">
+            <span>Developed By:https://github.com/ShakilAhmmed</span>
+        </div>
+    </body>
+</html>

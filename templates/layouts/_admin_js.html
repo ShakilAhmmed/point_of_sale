@@ -1,0 +1,89 @@
+  {% load staticfiles %}
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>window.jQuery || document.write('<script src="{% static 'admin_asset/src/js/vendor/jquery-3.3.1.min.js' %}"><\/script>')</script>
+        <script src="{% static 'admin_asset/boot/popper.js/dist/umd/popper.min.js' %}"></script>
+        <script src="{% static 'admin_asset/boot/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'admin_asset/boot/perfect-scrollbar/dist/perfect-scrollbar.min.js' %}"></script>
+        <script src="{% static 'admin_asset/boot/screenfull/dist/screenfull.js'%}"></script>
+        <script src="{% static 'admin_asset/boot/datatables.net/js/jquery.dataTables.min.js'%}"></script>
+        <script src="{% static 'admin_asset/boot/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+        <script src="{% static 'admin_asset/boot/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+        <script src="{% static 'admin_asset/boot/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+        <script src="{% static 'admin_asset/boot/jvectormap/jquery-jvectormap.min.js'%}"></script>
+        <script src="{% static 'admin_asset/boot/jvectormap/tests/assets/jquery-jvectormap-world-mill-en.js' %}"></script>
+        <script src="{% static 'admin_asset/boot/moment/moment.js' %}"></script>
+        <script src="{% static 'admin_asset/boot/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+        <script src="{% static 'admin_asset/boot/d3/dist/d3.min.js' %}"></script>
+        <script src="{% static 'admin_asset/boot/c3/c3.min.js' %}"></script>
+        <script src="{% static 'admin_asset/js/tables.js'  %}"></script>
+        <script src="{% static 'admin_asset/js/widgets.js' %}"></script>
+        <script src="{% static 'admin_asset/js/charts.js' %}"></script>
+        <script src="{% static 'admin_asset/second_dist/js/theme.min.js' %}"></script>
+        <script src="{% static 'admin_asset/second_dist/js/toastr.js' %}"></script>
+        <script src="{% static 'admin_asset/second_dist/js/animated.js' %}"></script>
+        <script src="{% static 'admin_asset/src/js/vendor/modernizr-2.8.3.min.js' %}"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='https://www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+        </script>
+
+           <script type="text/javascript">
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#image_upload_preview').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+                $("#inputFile").change(function () {
+                    readURL(this);
+                });
+        </script>
+
+         <script type="text/javascript">
+	//=====ConsumerBehaviourChart=======
+        toastr.options = {
+           "closeButton": true,
+		  "debug": false,
+		  "newestOnTop": true,
+		  "progressBar": false,
+		  "positionClass": "toast-top-right",
+		  "preventDuplicates": false,
+		  "onclick": null,
+		  "showDuration": "100",
+		  "hideDuration": "1000",
+		  "timeOut": "10000",
+		  "extendedTimeOut": "20000",
+		  "showEasing": "linear",
+		  "hideEasing": "linear",
+		  "showMethod": "slideDown",
+		  "hideMethod": "slideUp"
+        };
+		{% if messages %}
+		{% for message in messages %}
+            toastr['{{ message.level_tag }}']('{{ message }}');
+        {% endfor %}
+        {% endif %}
+    </script>
+
+    <script type="text/javascript">
+             $('.search').introducing();
+             $(".trash").click(function(){
+                 return confirm('Are You Sure?');
+             });
+             var count=$("#advanced_table tr").length-1;
+             $(".count").html(count)
+
+    </script>

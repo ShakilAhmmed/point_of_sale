@@ -1,0 +1,28 @@
+<!doctype html>
+{% load staticfiles %}
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{% block title %}{% endblock title %}</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        {% include 'layouts/_admin_css.html' %}
+    </head>
+
+<body>
+{% include 'layouts/_admin_header_top.html' %}
+
+{% include 'layouts/_admin_sidebar.html' %}
+    {% block maincontent %}
+
+     {% endblock maincontent %}
+
+{% include 'layouts/_admin_board_popbar.html' %}
+{% include 'layouts/_admin_js.html' %}
+{% include 'layouts/_admin_footer.html' %}
+</body>
+</html>

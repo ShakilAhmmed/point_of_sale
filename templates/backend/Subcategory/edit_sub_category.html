@@ -1,0 +1,54 @@
+{% extends 'backend/index.html' %}
+{% block title %}Admin|SubCategory{% endblock title %}
+{% block maincontent %}
+<div class="main-content">
+                        <!-- Button trigger modal -->
+
+                              <div class="modal-body">
+                                  <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form class="forms-sample" action="" method="POST">
+                                            {% csrf_token %}
+
+                                            <div class="form-group">
+                                                <label for="{{form.category_name.id_for_label}}">{{form.category_name.label}}</label>
+                                                {{form.category_name}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.category_name.errors}}</div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="{{form.sub_category_name.id_for_label}}">{{form.sub_category_name.label}}</label>
+                                                {{form.sub_category_name}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.sub_category_name.errors}}</div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="{{form.sub_category_name.id_for_label}}">{{form.sub_category_code.label}}</label>
+                                                {{form.sub_category_code}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.sub_category_code.errors}}</div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="{{form.sub_category_description.id_for_label}}">{{form.sub_category_description.label}}</label>
+                                                {{form.sub_category_description}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.sub_category_description.errors}}</div>
+                                            </div>
+
+                                              <div class="form-group">
+                                                <label for="{{form.sub_category_status.id_for_label}}">{{form.sub_category_status.label}}</label>
+                                                {{form.sub_category_status}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.sub_category_status.errors}}</div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                              </div>
+                              <div class="text-center">
+                                    <button type="submit" class="btn btn-success mr-2">Update</button>
+                               </div>
+
+                            </form>
+                          </div>
+                        </div>
+{% endblock maincontent %}

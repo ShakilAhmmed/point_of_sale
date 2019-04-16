@@ -1,0 +1,85 @@
+ {% load staticfiles %}
+ <div class="page-wrap">
+                <div class="app-sidebar colored">
+                    <div class="sidebar-header" style="height: 120px !important;">
+                        <a class="header-brand" href="index.html">
+                            <div class="logo-img">
+                               <img height="100px" style="margin-left: 132%;" src="{% static 'admin_asset/img/auth/logo.png'%}" class="header-brand-img" alt="lavalite">
+                            </div>
+                        </a>
+                        <button type="button" class="nav-toggle"><i data-toggle="expanded" class="ik ik-toggle-right toggle-icon"></i></button>
+                        <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
+                    </div>
+
+                    <div class="sidebar-content">
+                        <div class="nav-container">
+                            <nav id="main-menu-navigation" class="navigation-main">
+                                <div class="nav-item active">
+                                    <a href="{% url 'backend_home' %}"><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></a>
+                                </div>
+
+                                 <div class="nav-item has-sub">
+                                    <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>RBAC</span> <span class="badge badge-danger">150+</span></a>
+                                    <div class="submenu-content">
+                                        <a href="{% url 'create_admin' %}" class="menu-item">Create Admin</a>
+                                        <a href="pages/widget-statistic.html" class="menu-item">Statistic</a>
+                                        <a href="pages/widget-data.html" class="menu-item">Data</a>
+                                        <a href="pages/widget-chart.html" class="menu-item">Chart Widget</a>
+                                    </div>
+                                </div>
+
+                                <div class="nav-item">
+                                    <a href="{% url 'category' %}"><i class="ik ik-menu"></i><span>Category</span></a>
+                                </div>
+
+
+                                <div class="nav-item">
+                                    <a href="{% url 'sub_category' %}"><i class="ik ik-menu"></i><span>Sub Category</span></a>
+                                </div>
+
+
+
+                                 <div class="nav-item has-sub">
+                                    <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Brand</span> <span class="badge badge-danger">2</span></a>
+                                    <div class="submenu-content">
+                                        <a href="{% url 'brand' %}" class="menu-item">New Brand</a>
+                                        <a href="{% url 'brand_report' %}" class="menu-item">Brand Report</a>
+                                    </div>
+                                </div>
+
+                                 <div class="nav-item has-sub">
+                                    <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Product</span> <span class="badge badge-danger">2</span></a>
+                                    <div class="submenu-content">
+                                        <a href="{% url 'product_template' %}" class="menu-item">New Product Template</a>
+                                        <a href="{% url 'product_template_report' %}" class="menu-item">Product Template Report</a>
+                                    </div>
+                                </div>
+
+
+                                 <div class="nav-item has-sub">
+                                    <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Customer &amp; Supplier </span></a>
+                                    <div class="submenu-content">
+                                        <a href="{% url 'customer' %}" class="menu-item">Customer</a>
+                                        <a href="{% url 'customer_report' %}" class="menu-item">Customer Report</a>
+                                        <a href="{% url 'supplier' %}" class="menu-item">Supplier</a>
+                                        <a href="{% url 'supplier_report' %}" class="menu-item">Supplier Report</a>
+                                    </div>
+                                </div>
+
+                                <div class="nav-item">
+                                    <a href="{% url 'pos' %}"><i class="ik ik-menu"></i><span>Point Of Sale</span></a>
+                                </div>
+
+
+                                <div class="nav-item">
+                                    <a href="{% url 'purchase' %}"><i class="ik ik-menu"></i><span>Purchase</span></a>
+                                </div>
+
+
+                                <div class="nav-item">
+                                    <a href="pages/navbar.html"><i class="ik ik-menu"></i><span>Navigation</span> <span class="badge badge-success">New</span></a>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>

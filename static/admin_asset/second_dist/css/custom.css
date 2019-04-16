@@ -1,0 +1,114 @@
+.pop_up{
+	    float: right;
+}
+.custom_card_table{
+	    margin-top: 5%;
+}
+
+#image_upload_preview{
+    height: 160px;
+}
+.address th {
+	    background-color: #404e67;
+	    color: white;
+	    text-align: center;
+}
+
+.custom_card{
+	width: 22rem;
+    height: 110%;
+    margin-top: -46%;
+    margin-left: 215%;
+    position: inherit;
+}
+
+.cart_data th{
+	font-size: 10px;
+    background-color: #67a4da;
+}
+
+
+
+.view{
+        border: 1px solid white;
+        width: 198px;
+        height: 30px;
+        padding: 5px;
+        text-align: center;
+        background: #30466d;
+        color: white;
+        margin-left: 18px;
+    }
+    .view:hover{
+        background: white;
+        color: black;
+    }
+    .details{
+          float: right;
+        border: 1px solid black;
+        height: 422px;
+        width: 436px;
+    }
+    .message{
+            float: right;
+            border: 1px solid;
+            height: 84px;
+            width: 242px;
+            background: red;
+            text-align: center;
+            color: white;
+    }
+
+    .view_purchase{
+        border: 1px solid white;
+        width: 140px;
+        height: 30px;
+        padding: 5px;
+        text-align: center;
+        background: #1c3769;
+        color: white;
+        margin-left: 18px;
+    }
+    .view_purchase:hover{
+        background: white;
+        color: black;
+    }
+.add_field_button{
+    	margin-left: 20px;
+}   
+
+#section_purchase{
+	    margin-left: 2%;
+} 
+
+.tag{
+	background: #39849a;
+    border-radius: 3px 0 0 3px;
+    color: #fff;
+    display: inline-block;
+    height: 26px;
+    line-height: 26px;
+    padding: 0 20px 0 23px;
+    position: relative;
+    margin: 0 10px 10px 0;
+    text-decoration: none;
+    -webkit-transition: color 0.2s;
+}
+
+.tag::after {
+    background: #F6F7FB;
+    border-bottom: 13px solid transparent;
+    border-left: 10px solid #34689e;
+    border-top: 13px solid transparent;
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.sidebar-header{
+        background-color: #117571d6 !important;
+}
+.sidebar-content{
+    background-color: #354a6ff0 !important;
+}

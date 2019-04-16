@@ -1,0 +1,207 @@
+{% extends 'backend/index.html' %}
+{% block title %}Admin|ProductTemplate{% endblock title %}
+{% block maincontent %}
+<div class="main-content">
+                        <!-- Button trigger modal -->
+                 <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form class="forms-sample" action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+
+                                            <div class="form-group">
+                                                <label for="{{form.product_name.id_for_label}}">{{form.product_name.label}}</label>
+                                                {{form.product_name}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.product_name.errors}}</div>
+                                            </div>
+
+                                             <div class="form-group">
+                                                <label for="{{form.product_code.id_for_label}}">{{form.product_code.label}}</label>
+                                                {{form.product_code}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.product_code.errors}}</div>
+                                            </div>
+
+
+
+                                            <div class="form-group">
+                                                <label for="exampleCategoryName">Category Name</label>
+                                                <div>
+                                                {% for category_data in category %}
+                                                    <label class="custom-control custom-checkbox">
+
+                                                    <input type="checkbox" name="product_category[]" class="custom-control-input select_all_child category" id="" name="" value="{{category_data.pk}}">
+                                                    <span class="custom-control-label">&nbsp;{{category_data.category_name}}</span>
+
+                                                    </label>
+                                                {% endfor %}
+                                                </div>
+
+                                            </div>
+
+                                           <div class="form-group">
+                                                <label for="exampleCategoryName">Sub Category Name</label>
+                                                <div>
+                                                {% for sub_category_value in sub_category %}
+                                                <label class="custom-control custom-checkbox">
+                                                    <input type="checkbox" name="product_sub_category[]" class="custom-control-input select_all_child" id="" name="" value="{{sub_category_value.pk}}">
+                                                    <span class="custom-control-label">&nbsp;{{sub_category_value.sub_category_name}}</span>
+                                                </label>
+                                                {% endfor %}
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="{{form.product_brand_name.id_for_label}}">{{form.product_brand_name.label}}</label>
+                                                {{form.product_brand_name}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.product_brand_name.errors}}</div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="{{form.product_cost_price.id_for_label}}">{{form.product_cost_price.label}}</label>
+                                                {{form.product_cost_price}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.product_cost_price.errors}}</div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="{{form.product_mrp.id_for_label}}">{{form.product_mrp.label}}</label>
+                                                {{form.product_mrp}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.product_mrp.erros}}</div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="{{form.product_tax.id_for_label}}">{{form.product_tax.label}}</label>
+                                                {{form.product_tax}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.product_tax.errors}}</div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="{{form.product_unit.id_for_label}}">{{form.product_unit.label}}</label>
+                                                {{form.product_unit}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.product_unit.errors}}</div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="{{form.product_description.id_for_label}}">{{form.product_description.label}}</label>
+                                                {{form.product_description}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.product_description.errors}}</div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="{{form.open_stock.id_for_label}}">{{form.open_stock.label}}</label>
+                                                {{form.open_stock}}
+                                                <div class="text-danger" style="font-size: 14px;"></div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="{{form.product_status.id_for_label}}">{{form.product_status.label}}</label>
+                                                {{form.product_status}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.product_status.errors}}</div>
+                                            </div>
+
+                                             <div class="form-group">
+                                                <label for="{{form.is_published.id_for_label}}">{{form.is_published.label}}</label>
+                                                <div>
+                                                     <label class="custom-control custom-checkbox">
+                                                    {{form.is_published}}
+                                                    <span class="custom-control-label">&nbsp;</span>
+                                                </label>
+                                                </div>
+                                            </div>
+
+
+                                            <div>
+                                                <div class="form-group">
+                                                <label for="exampleCoverImage">Cover Image</label>
+                                                <input type="file" name="cover_image" id="inputFile">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleCoverImage"></label>
+                                                    <img id="image_upload_preview" src="http://placehold.it/100x100" alt="your image" />
+                                                </div>
+                                            </div>
+
+                         <div class="form-group">
+                            <div>
+                              <table class="table address">
+                                <tr>
+                                    <th style="background: #6363b1;width: 15%;">Other Images</th>
+                                    <th style="width: 35%;">Title</th>
+                                    <th style="width: 35%;">Image</th>
+                                    <th><button class="add_field_button btn btn-success"><i class="fas fa-plus-circle"></i></button></th>
+                                </tr>
+                              </table>
+                                <div class="input_fields_wrap">
+                                  <div class="row">
+                                        <div class="col-sm-2"></div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" name="product_image_title[]">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="file" name="product_image_data[]">
+                                        </div>
+                                        <div class="col-md-4"></div>
+                                    </div>
+                                </div>
+                                <div class="text-center mt-5">
+                                    <button class="btn btn-success">Save</button>
+                                </div>
+
+                            </div>
+                        </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x <= max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append("<div style='line-height: 40px;margin-left: 15%;'>\
+                      <table style='margin-top: -25px;'>\
+                     <tr>\
+                       <td>\
+                        <input type='text' class='form-control' name='product_image_title[]' style='margin-left: 21px;width: 370px;'/>\
+                      </td>\
+                      <td>\
+                        <input type='file' class='quantity' name='product_image_data[]' style='margin-left: 30px;width: 318px;'/>\
+                      </td>\
+                      </tr>\
+                     <button class='btn btn-danger remove_field' style='width: 40px;margin-left: 750px;margin-bottom: -28px;'><i class=\"far fa-trash-alt\"></i></button>\
+                     </table>\</div>"); //add input box
+        }
+        else
+        {
+                swal("Sorry!", "Only 10 Fields Allowed!", "error");
+        }
+    });
+
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+});
+</script>
+
+
+
+
+                                          </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                </div>
+
+
+{% endblock maincontent %}

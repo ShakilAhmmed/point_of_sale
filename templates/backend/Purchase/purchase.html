@@ -1,0 +1,146 @@
+{% extends 'backend/index.html' %}
+{% block title %}Admin|POS{% endblock title %}
+{% block maincontent %}
+<div class="main-content">
+
+                <div style="display: inline-flex;">
+                     <div class="view">DATE</div>
+                     <div class="view">COMPANY NAME</div>
+                     <div class="view">SUPPLIER NAME</div>
+                 </div>
+                 <div class="message" style="display: none;">!WARNING NO DATA FOUND</div>
+                 <div class="message" id="msg" style="display: none;">!PLEASE SELECT QUANTITY</div>
+                 <div class="message" id="msg2" style="display: none;">!PLEASE SELECT YOUR PAYMENT</div>
+                 <div style="display: -webkit-box;">
+                         <div class="form-group">
+                          <div class="col-sm-2"><!-- date('Y-m-d H:i:s') -->
+                            <input type="date" class="form-control" style="width: 200px;" name="">
+                          </div>
+                        </div>
+                         <div class="form-group">
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control" style="width: 200px;margin-left:-14px;" name="">
+                          </div>
+                        </div>
+
+                      <div class="form-group">
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control" style="width: 200px;margin-left:-10px;" name="">
+                          </div>
+                        </div>
+                </div>
+
+        <div id="section_purchase">
+
+        <table>
+          <thead>
+            <tr>
+              <th class="tag manage_mark_table_desgin">Date</th>
+              <th id="subject_name">2 April 2019</th>
+            </tr>
+          </thead>
+
+          <thead>
+            <tr>
+              <th class="tag manage_mark_table_desgin">Supplier Name</th>
+              <th id="max_min_mark">Niloy Dev</th>
+            </tr>
+          </thead>
+
+          <thead>
+            <tr>
+              <th class="tag manage_mark_table_desgin">Company Name</th>
+              <th id="total_student">Pran</th>
+            </tr>
+          </thead>
+      </table>
+      </div>
+
+
+                <div style="display: inline-flex;">
+                     <div class="view_purchase">Product Name</div>
+                     <div class="view_purchase">Unit Cost</div>
+                     <div class="view_purchase">Quantity</div>
+                     <div class="view_purchase">Tax</div>
+                     <div class="view_purchase">Sub Total</div>
+                     <div><button class="add_field_button btn btn-success"><i class="fas fa-plus-circle"></i></button></div>
+                 </div>
+
+                 <div style="display: -webkit-box;">
+                        <div class="form-group">
+                          <div class="col-sm-2"><!-- date('Y-m-d H:i:s') -->
+                            <input type="text" class="form-control" style="width: 140px;" name="">
+                          </div>
+                        </div>
+
+                         <div class="form-group">
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control" style="width: 140px;margin-left:-8px;" name="">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control" style="width: 140px;margin-left:-13px;" name="">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control" style="width: 140px;margin-left:-12px;" name="">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control" style="width: 140px;margin-left:-12px;" name="">
+                          </div>
+                        </div>
+                </div>
+                <div class="input_fields_wrap"></div>
+         </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x <= max_fields){ //max input box allowed
+            x++; //text box increment
+        $(wrapper).append("<div style='line-height: 45px;'>\
+                      <table style='margin-top: -25px;'>\
+                        <tr>\
+                       <td>\
+                        <input type='text' class='form-control quantity' name='quantity[]' style='margin-left: 14px;width: 142px;'/>\
+                      </td>\
+                      <td>\
+                        <input type='text' class='form-control quantity' name='quantity[]' style='margin-left: 20px;width: 142px;'/>\
+                      </td>\
+                      <td>\
+                        <input type='text' class='form-control quantity' name='quantity[]' style='margin-left: 16px;width: 142px;'/>\
+                      </td>\
+                      <td>\
+                        <input type='text' class='form-control quantity' name='quantity[]' style='margin-left: 16px;width: 142px;'/>\
+                      </td>\
+                      <td>\
+                        <input type='text' class='form-control quantity' name='quantity[]' style='margin-left: 20px;width: 142px;'/>\
+                      </td>\
+                      </tr>\
+                     <button class='btn btn-danger remove_field' style='width: 40px;margin-left: 816px;margin-bottom: -28px;'><i class=\"far fa-trash-alt\"></i></button>\
+                     </table>\</div>"); //add input box
+        }
+        else
+        {
+                swal("Sorry!", "Only 10 Fields Allowed!", "error");
+        }
+
+    });
+
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+});
+</script>
+{% endblock maincontent %}

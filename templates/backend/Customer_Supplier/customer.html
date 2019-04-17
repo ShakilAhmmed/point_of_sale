@@ -3,50 +3,54 @@
 {% block maincontent %}
 <div class="main-content">
                         <!-- Button trigger modal -->
+                        {{form.errors}}
                  <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form class="forms-sample">
-
+                                        <form class="forms-sample" action="" method="POST" enctype="multipart/form-data">
+                                                {% csrf_token %}
                                             <div class="form-group">
-                                                <label for="exampleCustomerName">Customer Name</label>
-                                                <input type="text" class="form-control" id="exampleCustomerName" placeholder="Customer Name">
+                                                <label for="{{customer_form.customer_name.id_for_label}}">{{customer_form.customer_name.label}}</label>
+                                                {{customer_form.customer_name}}
+                                                <div class="text-danger" style="font-size: 14px;">{{customer_form.customer_name.errors}}</div>
                                             </div>
 
                                              <div class="form-group">
-                                                <label for="exampleCompanyCode">Customer Code</label>
-                                                <input type="text" class="form-control" id="exampleCompanyCode" placeholder="Company Name">
+                                                <label for="{{customer_form.customer_code.id_for_label}}">{{customer_form.customer_code.label}}</label>
+                                                {{customer_form.customer_code}}
+                                                <div class="text-danger" style="font-size: 14px;">{{customer_form.customer_code.errors}}</div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="examplePhone">Phone</label>
-                                                <input type="text" class="form-control" id="examplePhone" placeholder="Phone">
+                                                <label for="{{customer_form.customer_phone.id_for_label}}">{{customer_form.customer_phone.label}}</label>
+                                                {{customer_form.customer_phone}}
+                                                <div class="text-danger" style="font-size: 14px;">{{customer_form.customer_phone.errors}}</div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="exampleEmail">Email</label>
-                                                <input type="email" class="form-control" id="exampleEmail" placeholder="Email">
+                                                <label for="{{customer_form.customer_email.id_for_label}}">{{customer_form.customer_email.label}}</label>
+                                                {{customer_form.customer_email}}
+                                                <div class="text-danger" style="font-size: 14px;">{{customer_form.customer_email.errors}}</div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="exampleAccount">Account No</label>
-                                                <input type="text" class="form-control" id="Account" placeholder="Account">
+                                                <label for="{{customer_form.customer_account_no.id_for_label}}">{{customer_form.customer_account_no.label}}</label>
+                                                {{customer_form.customer_account_no}}
+                                                <div class="text-danger" style="font-size: 14px;">{{customer_form.customer_account_no.errors}}</div>
                                             </div>
 
 
                                             <div class="form-group">
-                                                <label for="exampleDiscount">Discount(%)</label>
-                                                <input type="text" class="form-control" id="Discount" placeholder="Discount">
+                                                 <label for="{{customer_form.customer_discount.id_for_label}}">{{customer_form.customer_discount.label}}(%)</label>
+                                                {{customer_form.customer_discount}}
+                                                <div class="text-danger" style="font-size: 14px;">{{customer_form.customer_discount.errors}}</div>
                                             </div>
 
 
 
                                             <div class="form-group">
-                                                <label for="exampleDescription">Status</label>
-                                                <select class="form-control">
-                                                    <option>Active</option>
-                                                    <option>Inactive</option>
-                                                </select>
+                                                <label for="{{customer_form.customer_status.id_for_label}}">{{customer_form.customer_status.label}}</label>
+                                                {{customer_form.customer_status}}
                                             </div>
 
 
@@ -64,19 +68,24 @@
                                                     <tr>
                                                         <td></td>
                                                         <td>
-                                                            <input type="text" class="form-control" name="">
+                                                            {{customer_address_form.customer_post_office}}
+                                                             <div class="text-danger" style="font-size: 14px;">{{customer_address_form.customer_post_office.errors}}</div>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" name="">
+                                                            {{customer_address_form.customer_home_district}}
+                                                            <div class="text-danger" style="font-size: 14px;">{{customer_address_form.customer_home_district.errors}}</div>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" name="">
+                                                            {{customer_address_form.customer_division}}
+                                                            <div class="text-danger" style="font-size: 14px;">{{customer_address_form.customer_division.errors}}</div>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" name="">
+                                                            {{customer_address_form.customer_village_name}}
+                                                            <div class="text-danger" style="font-size: 14px;">{{customer_address_form.customer_village_name.errors}}</div>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" name="">
+                                                            {{customer_address_form.customer_home_name}}
+                                                            <div class="text-danger" style="font-size: 14px;">{{customer_address_form.customer_home_name.errors}}</div>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -88,7 +97,7 @@
                                                 <label for="exampleCategoryName">Notify</label>
                                                 <div>
                                                      <label class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input select_all_child" id="" name="" value="option2">
+                                                    {{customer_form.customer_notify}}
                                                     <span class="custom-control-label">&nbsp;</span>
                                                 </label>
                                                 </div>
@@ -99,31 +108,26 @@
                                                 <label for="exampleCategoryName">Taxable</label>
                                                 <div>
                                                      <label class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input select_all_child" id="" name="" value="option2">
-                                                    <span class="custom-control-label">&nbsp;</span>
+                                                     {{customer_form.customer_taxable}}
+                                                     <span class="custom-control-label">&nbsp;</span>
                                                 </label>
                                                 </div>
                                             </div>
-
-
-
-
-
-
-
-
-
-
                                             <div>
                                                 <div class="form-group">
                                                 <label for="exampleCoverImage">Profile Picture</label>
-                                                <input type="file" name="" id="inputFile">
+                                                <input type="file" name="customer_profile_picture" id="inputFile">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="exampleCoverImage"></label>
                                                     <img id="image_upload_preview" src="http://placehold.it/100x100" alt="your image" />
                                                 </div>
+
+                                                <div class="text-center">
+                                                 <button type="submit" class="btn btn-success mr-2">Save</button>
+                                                </div>
+
                                             </div>
 
 

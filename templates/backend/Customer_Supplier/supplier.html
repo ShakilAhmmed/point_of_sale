@@ -6,40 +6,44 @@
                  <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form class="forms-sample">
+                                        <form class="forms-sample" action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
 
                                             <div class="form-group">
-                                                <label for="exampleSupplierName">Supplier Name</label>
-                                                <input type="text" class="form-control" id="exampleSupplierName" placeholder="Supplier Name">
+                                                <label for="{{supplier_form.supplier_name.id_for_label}}">{{supplier_form.supplier_name.label}}</label>
+                                                {{supplier_form.supplier_name}}
+                                                <div class="text-danger" style="font-size: 14px;">{{supplier_form.supplier_name.errors}}</div>
                                             </div>
 
                                              <div class="form-group">
-                                                <label for="exampleSupplierCode">Supplier Code</label>
-                                                <input type="text" class="form-control" id="exampleSupplierCode" placeholder="Supplier Name">
+                                                <label for="{{supplier_form.supplier_code.id_for_label}}">{{supplier_form.supplier_code.label}}</label>
+                                                {{supplier_form.supplier_code}}
+                                                <div class="text-danger" style="font-size: 14px;">{{supplier_form.supplier_code.errors}}</div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="examplePhone">Phone</label>
-                                                <input type="text" class="form-control" id="examplePhone" placeholder="Phone">
+                                                <label for="{{supplier_form.supplier_phone.id_for_label}}">{{supplier_form.supplier_phone.label}}</label>
+                                                {{supplier_form.supplier_phone}}
+                                                <div class="text-danger" style="font-size: 14px;">{{supplier_form.supplier_phone.errors}}</div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="exampleEmail">Email</label>
-                                                <input type="email" class="form-control" id="exampleEmail" placeholder="Email">
+                                               <label for="{{supplier_form.supplier_email.id_for_label}}">{{supplier_form.supplier_email.label}}</label>
+                                                {{supplier_form.supplier_email}}
+                                                <div class="text-danger" style="font-size: 14px;">{{supplier_form.supplier_email.errors}}</div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="exampleAccount">Account No</label>
-                                                <input type="text" class="form-control" id="Account" placeholder="Account">
+                                                <label for="{{supplier_form.supplier_account_no.id_for_label}}">{{supplier_form.supplier_account_no.label}}</label>
+                                                {{supplier_form.supplier_account_no}}
+                                                <div class="text-danger" style="font-size: 14px;">{{supplier_form.supplier_account_no.errors}}</div>
                                             </div>
 
 
                                             <div class="form-group">
-                                                <label for="exampleDescription">Status</label>
-                                                <select class="form-control">
-                                                    <option>Active</option>
-                                                    <option>Inactive</option>
-                                                </select>
+                                                 <label for="{{supplier_form.supplier_status.id_for_label}}">{{supplier_form.supplier_status.label}}</label>
+                                                {{supplier_form.supplier_status}}
+                                                <div class="text-danger" style="font-size: 14px;">{{supplier_form.supplier_status.errors}}</div>
                                             </div>
 
 
@@ -57,19 +61,24 @@
                                                     <tr>
                                                         <td></td>
                                                         <td>
-                                                            <input type="text" class="form-control" name="">
+                                                            {{supplier_address_form.supplier_post_office}}
+                                                            <div class="text-danger" style="font-size: 14px;">{{supplier_address_form.supplier_post_office.errors}}</div>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" name="">
+                                                             {{supplier_address_form.supplier_home_district}}
+                                                            <div class="text-danger" style="font-size: 14px;">{{supplier_address_form.supplier_home_district.errors}}</div>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" name="">
+                                                            {{supplier_address_form.supplier_division}}
+                                                            <div class="text-danger" style="font-size: 14px;">{{supplier_address_form.supplier_division.errors}}</div>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" name="">
+                                                            {{supplier_address_form.supplier_village_name}}
+                                                            <div class="text-danger" style="font-size: 14px;">{{supplier_address_form.supplier_village_name.errors}}</div>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" name="">
+                                                            {{supplier_address_form.supplier_home_name}}
+                                                            <div class="text-danger" style="font-size: 14px;">{{supplier_address_form.supplier_home_name.errors}}</div>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -91,19 +100,24 @@
                                                     <tr>
                                                         <td></td>
                                                         <td>
-                                                            <input type="text" class="form-control" name="">
+                                                            {{supplier_education_form.supplier_exam_name}}
+                                                            <div class="text-danger" style="font-size: 14px;">{{supplier_education_form.supplier_exam_name.errors}}</div>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" name="">
+                                                            {{supplier_education_form.supplier_board_name}}
+                                                            <div class="text-danger" style="font-size: 14px;">{{supplier_education_form.supplier_board_name.errors}}</div>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" name="">
+                                                            {{supplier_education_form.supplier_passing_year}}
+                                                            <div class="text-danger" style="font-size: 14px;">{{supplier_education_form.supplier_passing_year.errors}}</div>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" name="">
+                                                             {{supplier_education_form.supplier_department_name}}
+                                                            <div class="text-danger" style="font-size: 14px;">{{supplier_education_form.supplier_department_name.errors}}</div>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" name="">
+                                                             {{supplier_education_form.supplier_result}}
+                                                            <div class="text-danger" style="font-size: 14px;">{{supplier_education_form.supplier_result.errors}}</div>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -112,10 +126,10 @@
 
 
                                             <div class="form-group">
-                                                <label for="exampleCategoryName">Notify</label>
+                                                <label for="{{supplier_form.supplier_notify.id_for_label}}">{{supplier_form.supplier_notify.label}}</label>
                                                 <div>
                                                      <label class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input select_all_child" id="" name="" value="option2">
+                                                     {{supplier_form.supplier_notify}}
                                                     <span class="custom-control-label">&nbsp;</span>
                                                 </label>
                                                 </div>
@@ -125,21 +139,18 @@
                                             <div>
                                                 <div class="form-group">
                                                 <label for="exampleCoverImage">Profile Picture</label>
-                                                <input type="file" name="" id="inputFile">
+                                                <input type="file" name="supplier_profile_picture" id="inputFile">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="exampleCoverImage"></label>
-                                                    <img id="image_upload_preview" src="http://placehold.it/100x100" alt="your image" />
+                                                    <img id="image_upload_preview" {% if image %} src="{{image}}" {% else %}src="http://placehold.it/100x100" {% endif %} alt="your image" />
                                                 </div>
                                             </div>
 
-
-
-
-
-
-
+                                              <div class="text-center">
+                                                 <button type="submit" class="btn btn-success mr-2">Save</button>
+                                              </div>
                                           </form>
                                     </div>
                                 </div>

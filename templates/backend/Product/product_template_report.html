@@ -225,15 +225,15 @@
                     data:{'code':code,'csrfmiddlewaretoken':csrf},
                     dataType:'json',
                     success:function(data) {
-                        console.log(data[0].pk);
-                         $.ajax({
-                            url:"{% url 'get_categories' %}",
-                            type:'POST',
-                            data:{'product_id':data[0].pk,'csrfmiddlewaretoken':csrf},
-                            success:function(r){
-                                console.log(r);
-                            }
-                        });
+                        //console.log(data);
+                        //  $.ajax({
+                        //     url:"{% url 'get_categories' %}",
+                        //     type:'POST',
+                        //     data:{'product_id':data[0].pk,'csrfmiddlewaretoken':csrf},
+                        //     success:function(r){
+                        //         console.log(r);
+                        //     }
+                        // });
 
                         $(".product_name").html(data[0].fields.product_name);
                         $(".product_code").html(data[0].fields.product_code);

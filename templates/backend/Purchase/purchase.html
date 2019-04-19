@@ -13,89 +13,120 @@
                  <div class="message" id="msg2" style="display: none;">!PLEASE SELECT YOUR PAYMENT</div>
                  <div style="display: -webkit-box;">
                          <div class="form-group">
-                          <div class="col-sm-2"><!-- date('Y-m-d H:i:s') -->
-                            <input type="date" class="form-control" style="width: 200px;" name="">
+                          <div class="col-sm-2">
+                            {{form.date}}
+                            <div class="text-danger" style="font-size: 14px;">{{form.date.errors}}</div>
                           </div>
                         </div>
                          <div class="form-group">
                           <div class="col-sm-2">
-                            <input type="text" class="form-control" style="width: 200px;margin-left:-14px;" name="">
+                            {{form.company_name}}
+                            <div class="text-danger" style="font-size: 14px;">{{form.date.company_name}}</div>
                           </div>
                         </div>
 
                       <div class="form-group">
                           <div class="col-sm-2">
-                            <input type="text" class="form-control" style="width: 200px;margin-left:-10px;" name="">
+                             {{form.supplier_name}}
+                            <div class="text-danger" style="font-size: 14px;">{{form.date.supplier_name}}</div>
                           </div>
                         </div>
                 </div>
 
-        <div id="section_purchase">
+        <div id="section_purchase" >
 
         <table>
           <thead>
             <tr>
               <th class="tag manage_mark_table_desgin">Date</th>
-              <th id="subject_name">2 April 2019</th>
-            </tr>
-          </thead>
-
-          <thead>
-            <tr>
-              <th class="tag manage_mark_table_desgin">Supplier Name</th>
-              <th id="max_min_mark">Niloy Dev</th>
+              <th id="subject_name"><span class="date_field">YY-MM-DD</span></th>
             </tr>
           </thead>
 
           <thead>
             <tr>
               <th class="tag manage_mark_table_desgin">Company Name</th>
-              <th id="total_student">Pran</th>
+              <th id="max_min_mark"><span class="company_field"></span></th>
+            </tr>
+          </thead>
+
+          <thead>
+            <tr>
+              <th class="tag manage_mark_table_desgin">Supplier Name</th>
+              <th id="total_student"><span class="supplier_field"></span></th>
             </tr>
           </thead>
       </table>
       </div>
 
 
-                <div style="display: inline-flex;">
+                <div style="display: inline-flex;margin-left: 15%;">
                      <div class="view_purchase">Product Name</div>
                      <div class="view_purchase">Unit Cost</div>
                      <div class="view_purchase">Quantity</div>
-                     <div class="view_purchase">Tax</div>
                      <div class="view_purchase">Sub Total</div>
                      <div><button class="add_field_button btn btn-success"><i class="fas fa-plus-circle"></i></button></div>
                  </div>
+                 <table style="margin-left: 15%;">
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                          <div class="col-sm-2">
 
-                 <div style="display: -webkit-box;">
-                        <div class="form-group">
-                          <div class="col-sm-2"><!-- date('Y-m-d H:i:s') -->
-                            <input type="text" class="form-control" style="width: 140px;" name="">
+                            <select type="text" class="form-control product_name" style="width: 140px;" name="product_name[]">
+                                <option>--select product name --</option>
+                                {% for product_data_value in product_data %}
+                                    <option value="{{product_data_value.pk}}">{{product_data_value.product_name}}</option>
+                                {% endfor %}
+                            </select>
                           </div>
                         </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                              <div class="col-sm-2">
+                                <input type="text" readonly class="form-control unit_cost" style="width: 140px;margin-left:-8px;" name="unit_cost">
+                              </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                              <div class="col-sm-2">
+                                <input type="text" class="form-control quantity" style="width: 140px;margin-left:-13px;" name="quantity[]">
+                              </div>
+                             </div>
+                        </td>
+                        <td>
+                             <div class="form-group">
+                              <div class="col-sm-2">
+                                <input type="text" readonly class="form-control sub_total" style="width: 140px;margin-left:-12px;" name="sub_total[]">
+                              </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
 
-                         <div class="form-group">
-                          <div class="col-sm-2">
-                            <input type="text" class="form-control" style="width: 140px;margin-left:-8px;" name="">
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                          <div class="col-sm-2">
-                            <input type="text" class="form-control" style="width: 140px;margin-left:-13px;" name="">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="col-sm-2">
-                            <input type="text" class="form-control" style="width: 140px;margin-left:-12px;" name="">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="col-sm-2">
-                            <input type="text" class="form-control" style="width: 140px;margin-left:-12px;" name="">
-                          </div>
-                        </div>
-                </div>
                 <div class="input_fields_wrap"></div>
+                <div style="float: right;margin-right: 425px;" class="mt-10">
+                 <table>
+                  <tr>
+                    <th class="view_purchase">Total</th>
+                    <th class="view_purchase">Pay</th>
+                    <th class="view_purchase">Due</th>
+                 </tr>
+                  <tr>
+                    <td><input type="text"  readonly class="form-control grand_total" name="total"></td>
+                    <td><input type="text" class="form-control pay" name="pay"></td>
+                    <td><input type="text" readonly class="form-control due" name="due"></td>
+                 </tr>
+                 <tr>
+
+                    <td class="text-center " colspan="3" rowspan="2">
+                        <button class="btn btn-success mt-5 submit">Proceed</button>
+                    </td>
+                </tr>
+                </table>
+                </div>
          </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -109,26 +140,28 @@ $(document).ready(function() {
         e.preventDefault();
         if(x <= max_fields){ //max input box allowed
             x++; //text box increment
-        $(wrapper).append("<div style='line-height: 45px;'>\
-                      <table style='margin-top: -25px;'>\
+        $(wrapper).append("<div style='line-height: 30px;'>\
+                      <table style='margin-top: -10px;margin-left: 15%;'>\
                         <tr>\
                        <td>\
-                        <input type='text' class='form-control quantity' name='quantity[]' style='margin-left: 14px;width: 142px;'/>\
+                        <select type='text' class='form-control product_name' name='product_name[]' style='margin-left: 14px;width: 142px;'>\
+                        <option>--select product name--</option>\
+                        {% for product_data_value in product_data%}\
+                            <option value='{{product_data_value.pk}}'>{{product_data_value.product_name}}</option>\
+                        {% endfor %}\
+                        </select>\
                       </td>\
                       <td>\
-                        <input type='text' class='form-control quantity' name='quantity[]' style='margin-left: 20px;width: 142px;'/>\
+                        <input type='text' readonly class='form-control unit_cost' name='unit_cost' style='margin-left: 20px;width: 142px;'/>\
                       </td>\
                       <td>\
                         <input type='text' class='form-control quantity' name='quantity[]' style='margin-left: 16px;width: 142px;'/>\
                       </td>\
                       <td>\
-                        <input type='text' class='form-control quantity' name='quantity[]' style='margin-left: 16px;width: 142px;'/>\
-                      </td>\
-                      <td>\
-                        <input type='text' class='form-control quantity' name='quantity[]' style='margin-left: 20px;width: 142px;'/>\
+                        <input type='text' readonly class='form-control sub_total' name='sub_total[]' style='margin-left: 20px;width: 142px;'/>\
                       </td>\
                       </tr>\
-                     <button class='btn btn-danger remove_field' style='width: 40px;margin-left: 816px;margin-bottom: -28px;'><i class=\"far fa-trash-alt\"></i></button>\
+                     <button class='btn btn-danger remove_field' style='width: 40px;margin-left: 855px;margin-bottom: -28px;'><i class=\"far fa-trash-alt\"></i></button>\
                      </table>\</div>"); //add input box
         }
         else
@@ -140,7 +173,156 @@ $(document).ready(function() {
 
     $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parent('div').remove(); x--;
+        $(".grand_total").val('');
+        $(".pay").val('');
+        $(".due").val('');
+        total();
     })
 });
 </script>
+
+<script>
+$(document).ready(function(){
+    $(".datepicker").attr('type','date');
+    $(".datepicker").change(function(){
+        var date=$(this).val();
+        $(".date_field").html(date)
+    });
+
+    $("#id_company_name").change(function() {
+        var company_name=$(this).find(":selected").text();
+        $(".company_field").html(company_name);
+    });
+
+     $("#id_supplier_name").change(function() {
+        var supplier_name=$(this).find(":selected").text();
+        $(".supplier_field").html(supplier_name);
+    });
+
+     $(document).on("change",".product_name",function(){
+            var product_id=$(this).val();
+            csrf='{{ csrf_token }}';
+            var row=$(this).closest("tr");
+            $.ajax({
+                    url:"{% url 'product_data_get' %}",
+                    type:'POST',
+                    data:{'product_id':product_id,'csrfmiddlewaretoken':csrf},
+                    success:function(data){
+                        row.find(".unit_cost").val(data[0].fields.product_mrp);
+                        row.find("input[name='unit_cost']").val(data[0].fields.product_mrp)
+                        //$(".unit_cost").val(data[0].fields.product_mrp);
+                    }
+            });
+
+
+     });
+
+        $(document).on('keyup','.quantity',function(){
+              var price_row = $(this).closest("tr").find(".unit_cost");
+              var price=parseInt(price_row.val());
+              var quantity=parseInt($(this).val());
+              var subtotal=parseInt(price*quantity);
+              $(this).closest("tr").find(".sub_total").val(subtotal);
+              var total=0;
+               $(".sub_total").each(function() {
+                  var value=parseInt($(this).val());
+                  if(isNaN(value)){
+                     swal("Sorry!", "Check Your Input", "error");
+                  }
+                  else
+                  {
+                      total=parseInt(total+value);
+                      $(".grand_total").val(total);
+                      $(".pay").val('');
+                  }
+            });
+        });
+
+
+        $(document).on("keydown",".quantity,.pay",function(e){
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+            // Allow: Ctrl+A, Command+A
+            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: home, end, left, right, down, up
+            (e.keyCode >= 35 && e.keyCode <= 40)) {
+            // let it happen, don't do anything
+            return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+            }
+            });
+
+        $(".pay").keyup(function(){
+            var grand_total=$(".grand_total").val();
+            var pay=$(this).val();
+            if(pay>grand_total)
+            {
+                swal("Sorry!", "Pay Is Greater Than Total", "error");
+                $(this).val('')
+            }
+            else
+            {
+                var due=parseInt(grand_total)-parseInt(pay);
+                $(".due").val(parseInt(due));
+            }
+
+
+        });
+
+   $(".submit").click(function(){
+    var date=$(".date").val();
+    var company_name=$(".company_name").val();
+    var supplier_name=$(".supplier_name").val();
+    var grand_total=$('.grand_total').val();
+    var payment=$(".pay").val();
+    var product_name=[];
+    var quantity=[];
+     $('.product_name').each(function(){
+         product_name.push($(this).val());
+         quantity.push($('.quantity').val());
+     });
+     alert("date"+date);
+     alert("company_name"+company_name);
+     alert("supplier_name"+supplier_name);
+     alert("grand_total"+grand_total);
+     alert("payment"+payment);
+
+     alert("Product"+product_name);
+     alert("Quantity"+quantity);
+
+      // $.ajax({
+      //   url:'/retail_sale',
+      //   type:'post',
+      //   data:{'date':date,'invoice_id':invoice_id,'payment':payment,'customer_name':customer_name,'grand_total':grand_total,'medicine_code':medicine_code,'quantity':quantity,'_token': $('input[name=_token]').val()},
+      //   success:function(data){
+      //        $(".msg").html("<font style='color:green;font-size: 28px;'>Successfully Sale&nbsp;</font><button id='invoice_print' data-toggle='modal' data-target='#myModal' get_value="+invoice_id+"><i class='fa fa-print'></i></button>");
+      //   }
+      // });
+  });
+
+
+
+});
+
+function total()
+{
+    var total=0;
+   $(".sub_total").each(function() {
+      var value=parseInt($(this).val());
+      if(isNaN(value)){
+         swal("Sorry!", "Check Your Input", "error");
+      }
+      else
+      {
+          total=parseInt(total+value);
+          $(".grand_total").val(total);
+          $(".pay").val('');
+      }
+    });
+}
+</script>
+
 {% endblock maincontent %}

@@ -64,6 +64,11 @@ urlpatterns = [
     path('supplier_report/delete/<int:pk>', customer_supplier_views.supplier_delete, name="supplier_delete"),
     path('supplier_report/status/<int:pk>', customer_supplier_views.supplier_status, name="supplier_status"),
     path('supplier_report/edit/<int:pk>', customer_supplier_views.supplier_edit, name="supplier_edit"),
+
+
     path('pos', pos_section_views.pos, name="pos"),
+
+
     path('purchase', purchase_views.purchase, name="purchase"),
+    path('product_data_get', purchase_views.product_data_get, name="product_data_get"),
 ]

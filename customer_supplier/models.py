@@ -40,6 +40,8 @@ class SupplierModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.supplier_name
 
 class SupplierAddress(models.Model):
     supplier = models.ForeignKey(SupplierModel, on_delete=models.CASCADE)

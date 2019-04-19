@@ -53,8 +53,17 @@ urlpatterns = [
 
     path('customer', customer_supplier_views.customer, name="customer"),
     path('customer_report', customer_supplier_views.customer_report, name="customer_report"),
+    path('customer_report/edit/<int:pk>', customer_supplier_views.customer_edit, name="customer_edit"),
+    path('customer_report/delete/<int:pk>', customer_supplier_views.customer_delete, name="customer_delete"),
+    path('customer_report/status/<int:pk>', customer_supplier_views.customer_status, name="customer_status"),
+
+
+
     path('supplier', customer_supplier_views.supplier, name="supplier"),
     path('supplier_report', customer_supplier_views.supplier_report, name="supplier_report"),
+    path('supplier_report/delete/<int:pk>', customer_supplier_views.supplier_delete, name="supplier_delete"),
+    path('supplier_report/status/<int:pk>', customer_supplier_views.supplier_status, name="supplier_status"),
+    path('supplier_report/edit/<int:pk>', customer_supplier_views.supplier_edit, name="supplier_edit"),
     path('pos', pos_section_views.pos, name="pos"),
     path('purchase', purchase_views.purchase, name="purchase"),
 ]

@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
@@ -97,9 +97,9 @@ def product_publish(request, pk):
 @login_required
 def product_edit(request, pk):
     product_template_data = get_object_or_404(ProductTemplate, pk=pk)
-    old_file=product_template_data.cover_image
+    old_file = product_template_data.cover_image
     if request.method == "POST":
-        form = ProductTemplateForm(request.POST, request.FILES,instance=product_template_data)
+        form = ProductTemplateForm(request.POST, request.FILES, instance=product_template_data)
         if form.is_valid():
             if request.FILES:
                 new_file = request.FILES.get('cover_image')
@@ -109,7 +109,7 @@ def product_edit(request, pk):
             new_data = form.save()
             product_category_update = request.POST.getlist('product_category[]')
             product_sub_category_update = request.POST.getlist('product_sub_category[]')
-            prev_category=ProductTemplateCategory.objects.filter(product_template_id=pk).delete()
+            prev_category = ProductTemplateCategory.objects.filter(product_template_id=pk).delete()
             for product_category_data in product_category_update:
                 category_data_get = get_object_or_404(Category, pk=product_category_data)
                 category = ProductTemplateCategory()
@@ -123,8 +123,8 @@ def product_edit(request, pk):
                 sub_category.product_template_id = new_data.pk
                 sub_category.product_sub_category = sub_category_data
                 sub_category.save()
-            messages.success(request,'Product Updated Successfully')
-            return redirect('product_edit',pk=pk)
+            messages.success(request, 'Product Updated Successfully')
+            return redirect('product_edit', pk=pk)
     else:
         form = ProductTemplateForm(instance=product_template_data)
     product_category = ProductTemplateCategory.objects.filter(product_template_id=pk)
@@ -152,6 +152,10 @@ def product_edit(request, pk):
 @login_required
 def product_view(request):
     code = request.POST.get("code")
+    # context = {
+    #     'product_template_data': ProductTemplate.objects.filter(product_code=code)
+    # }
+    # return JsonResponse(context)
     product_template_data = ProductTemplate.objects.filter(product_code=code)
     value = serializers.serialize('json', product_template_data)
     return HttpResponse(value, content_type="application/json")

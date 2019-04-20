@@ -34,3 +34,12 @@ class PurchasePaymentModel(models.Model):
     due = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class StockModel(models.Model):
+    purchase = models.ForeignKey(PurchaseModel, on_delete=models.CASCADE)
+    product = models.ForeignKey(ProductTemplate, on_delete=models.CASCADE)
+    stock_code = models.CharField(max_length=256, unique=True)
+    stock_status = models.CharField(max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

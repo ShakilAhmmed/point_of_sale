@@ -70,5 +70,6 @@ urlpatterns = [
 
 
     path('purchase', purchase_views.purchase, name="purchase"),
+    path('purchase/report', purchase_views.purchase_report, name="purchase_report"),
     path('product_data_get', purchase_views.product_data_get, name="product_data_get"),
 ]

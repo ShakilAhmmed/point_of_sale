@@ -1,16 +1,110 @@
 {% extends 'backend/index.html' %}
 {% block title %}Admin|POS{% endblock title %}
+{% load staticfiles %}
 {% block maincontent %}
 <div class="main-content">
-
+<style type="text/css">
+.stock_success{
+    float: right;
+    border: 1px solid white;
+    background-color: #a4ea86a8;
+    height: 55px;
+    width: 228px;
+    text-align: center;
+    font-size: 15px;
+    font-family: initial;
+    padding: 15px;
+}
+.stock_success_print{
+    float: right;
+    border: 1px solid white;
+    height: 50px;
+    width: 65px;
+    text-align: center;
+    font-size: 15px;
+    font-family: initial;
+    padding: 15px;
+}
+</style>
                 <div style="display: inline-flex;">
                      <div class="view">DATE</div>
                      <div class="view">COMPANY NAME</div>
                      <div class="view">SUPPLIER NAME</div>
                  </div>
-                 <div class="message" style="display: none;">!WARNING NO DATA FOUND</div>
-                 <div class="message" id="msg" style="display: none;">!PLEASE SELECT QUANTITY</div>
-                 <div class="message" id="msg2" style="display: none;">!PLEASE SELECT YOUR PAYMENT</div>
+                 <div class="stock_success" style="display: none;"><i class="fa fa-check"></i>&nbsp;<span>Product Added Into Stock</span></div>
+                 <div class="stock_success_print"><button data-toggle="modal" data-target="#exampleModal"><i class="fa fa-print"></i></button></div>
+                 <!-- Modal !-->
+
+                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 718px;">
+      <div class="modal-header">
+        <div class="col-sm-8"></div>
+        <div class="col-sm-4">
+            <h3>Meena Bazar</h3>
+            <span>Address:Kazipara,TMSS Road</span>
+            <br>
+            <span>Phone:018499420523</span>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <img src="{% static 'admin_asset/img/auth/barcode.png' %}" style="height: 70px;">
+                <p>12345678</p>
+            </div>
+            <div class="col-sm-6">
+            <img src="{% static 'admin_asset/img/auth/barcode.png' %}" style="height: 70px;float: right;">
+            </div>
+        </div>
+        <hr>
+       <div style="border: 1px solid #a1a8bd70;height: 30px;background-color: #a1a8bd70;text-align: center;">
+            <h3 style="font-size: 15px;margin-top: 6px;color: #17615bc9;">DETAILS</h3>
+        </div>
+        <table>
+            <tr>
+                <td class="table_tr">PRODUCT NAME:</td>
+                <td class="product_name"></td>
+            </tr>
+            <tr>
+                <td class="table_tr">PRODUCT CODE:</td>
+                <td class="product_code"></td>
+            </tr>
+            <tr>
+                <td class="table_tr">PRODUCT BRAND:</td>
+                <td class="product_brand"></td>
+            </tr>
+            <tr>
+                <td class="table_tr">COST PRICE:</td>
+                <td class="cost_price"></td>
+            </tr>
+            <tr>
+                <td class="table_tr">PRODUCT MRP:</td>
+                <td class="product_mrp"></td>
+            </tr>
+            <tr>
+                <td class="table_tr">PRODUCT TAX:</td>
+                <td class="product_tax"></td>
+            </tr>
+            <tr>
+                <td class="table_tr">PRODUCT UNIT:</td>
+                <td class="product_unit"></td>
+            </tr>
+        </table>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
                  <div style="display: -webkit-box;">
                          <div class="form-group">
                           <div class="col-sm-2">
@@ -58,6 +152,10 @@
           </thead>
       </table>
       </div>
+      <div style="text-align: center;margin-left: -215px;">
+        <img class="loader" src="{% static 'admin_asset/loader.gif'%}" style="height: 20px;display: none;">
+      </div>
+      <br>
 
 
                 <div style="display: inline-flex;margin-left: 15%;">
@@ -74,7 +172,7 @@
                           <div class="col-sm-2">
 
                             <select type="text" class="form-control product_name" style="width: 140px;" name="product_name[]">
-                                <option>--select product name --</option>
+                                <option value=''>--select product name --</option>
                                 {% for product_data_value in product_data %}
                                     <option value="{{product_data_value.pk}}">{{product_data_value.product_name}}</option>
                                 {% endfor %}
@@ -145,7 +243,7 @@ $(document).ready(function() {
                         <tr>\
                        <td>\
                         <select type='text' class='form-control product_name' name='product_name[]' style='margin-left: 14px;width: 142px;'>\
-                        <option>--select product name--</option>\
+                        <option value=''>--select product name--</option>\
                         {% for product_data_value in product_data%}\
                             <option value='{{product_data_value.pk}}'>{{product_data_value.product_name}}</option>\
                         {% endfor %}\
@@ -258,10 +356,11 @@ $(document).ready(function(){
         $(".pay").keyup(function(){
             var grand_total=$(".grand_total").val();
             var pay=$(this).val();
-            if(pay>grand_total)
+            if(parseInt(pay)>parseInt(grand_total))
             {
                 swal("Sorry!", "Pay Is Greater Than Total", "error");
-                $(this).val('')
+                $(this).val('');
+                $(".due").val('');
             }
             else
             {
@@ -273,34 +372,87 @@ $(document).ready(function(){
         });
 
    $(".submit").click(function(){
-    var date=$(".date").val();
+    var date=$(".datepicker").val();
     var company_name=$(".company_name").val();
     var supplier_name=$(".supplier_name").val();
     var grand_total=$('.grand_total').val();
     var payment=$(".pay").val();
     var product_name=[];
     var quantity=[];
+    var csrf='{{ csrf_token }}';
      $('.product_name').each(function(){
-         product_name.push($(this).val());
-         quantity.push($('.quantity').val());
+         value=$(this).val();
+         if (value!='')
+         {
+                product_name.push(value);
+         }
+
      });
-     alert("date"+date);
-     alert("company_name"+company_name);
-     alert("supplier_name"+supplier_name);
-     alert("grand_total"+grand_total);
-     alert("payment"+payment);
+     $('.quantity').each(function(){
+         quantity.push(parseInt($(this).val()));
+     });
+     if(date=='')
+     {
+         swal("Error!", "Please Put Date", "error");
+     }
+     else if(company_name=='')
+     {
+        swal("Error!", "Please Select Comany Name", "error");
+     }
+     else if(supplier_name=='')
+     {
+        swal("Error!", "Please Select Supplier Name", "error");
+     }
+     else if(product_name == '')
+     {
+        swal("Error!", "Please Select Product Name", "error");
+     }
+     else if(quantity == '')
+     {
+        swal("Error!", "Please Select Quantity Name", "error");
+     }
+     else if(payment == '')
+     {
+        swal("Error!", "Please Select Payment", "error");
+     }
+     else
+     {
+        $(".loader").show();
+          setTimeout(function(){
+        $.ajax({
+            url:"{% url 'purchase' %}",
+            type:"POST",
+            data:{'date':date,'company_name':company_name,'supplier_name':supplier_name,'product_name':product_name,'quantity':quantity,'total':grand_total,'pay':payment,'csrfmiddlewaretoken':csrf},
+            success:function(data) {
+              console.log(data);
+                  if(data=="DataSaved")
+                  {
+                        $(".datepicker").val('');
+                        $(".company_name").val('');
+                        $(".supplier_name").val('');
+                        $(".date_field").html('');
+                        $(".company_field").html('');
+                        $(".supplier_field").html('');
+                        $(".product_name").val('');
+                        $(".unit_cost").val('');
+                        $(".sub_total").val('');
+                        $(".quantity").val('');
+                        $(".grand_total").val('');
+                        $(".due").val('');
+                        $(".pay").val('');
+                        $(".loader").hide("slow");
+                        $(".stock_success").show();
+                        $(".stock_success_print").show();
+                        setTimeout(function(){
+                             $(".stock_success").hide();
+                        },1000);
+                  }
+            }
+         });
+        }, 3000);
+     }
 
-     alert("Product"+product_name);
-     alert("Quantity"+quantity);
 
-      // $.ajax({
-      //   url:'/retail_sale',
-      //   type:'post',
-      //   data:{'date':date,'invoice_id':invoice_id,'payment':payment,'customer_name':customer_name,'grand_total':grand_total,'medicine_code':medicine_code,'quantity':quantity,'_token': $('input[name=_token]').val()},
-      //   success:function(data){
-      //        $(".msg").html("<font style='color:green;font-size: 28px;'>Successfully Sale&nbsp;</font><button id='invoice_print' data-toggle='modal' data-target='#myModal' get_value="+invoice_id+"><i class='fa fa-print'></i></button>");
-      //   }
-      // });
   });
 
 

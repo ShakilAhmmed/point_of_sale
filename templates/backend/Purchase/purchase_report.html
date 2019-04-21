@@ -47,12 +47,13 @@
                                             <th>Product Name(Code)</th>
                                             <th>Product Price</th>
                                             <th>Quantity</th>
-                                            <th>Sub Total</th>
+                                            <th>Total</th>
+                                            <th>Payment Information</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {% for purchase_data_value in purchase_data %}
+                                    {% for purchase_data_value in purchase_data_grp %}
                                         <tr>
                                             <td>
                                                 <label class="custom-control custom-checkbox">
@@ -61,22 +62,39 @@
                                                 </label>
                                             </td>
                                             <td>{{purchase_data_value.created_at}}</td>
-                                            <td>{{purchase_data_value.product_name}}({{purchase_data_value.product_name.product_code}})</td>
-                                            <td>{{purchase_data_value.product_name.product_cost_price}}</td>
-                                            <td>{{purchase_data_value.quantity}}</td>
-                                            <td>{{purchase_data_value.sub_total}}</td>
+                                            <td>
+                                                <table>
+                                                    <tr>
+                                                       <td>{% for purchase_main_data_value in purchase_main_data%} {% if purchase_main_data_value.purchase_id == purchase_data_value.purchase  %} &nbsp; {{purchase_main_data_value.product_name}} {% endif %}{% endfor %}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td>{% for purchase_main_data_value in purchase_main_data%} {% if purchase_main_data_value.purchase_id == purchase_data_value.purchase  %} &nbsp;  {{purchase_main_data_value.product_name.product_cost_price}} {% endif %}{% endfor %}</td>
+                                            <td>{{purchase_data_value.qty}}</td>
+                                            <td>{{purchase_data_value.total}}</td>
+                                            <td>
+                                                <table>
+                                                    <tr>
+                                                        <td>Paid</td>
+                                                        <td>Due</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{% for purchase_payment_data_value in purchase_payment_data %} {% if purchase_payment_data_value.purchase_id == purchase_data_value.purchase  %} {{purchase_payment_data_value.pay}} {% endif %} {% endfor %}</td>
+                                                        <td>{% for purchase_payment_data_value in purchase_payment_data %} {% if purchase_payment_data_value.purchase_id == purchase_data_value.purchase  %} <span class="{% if purchase_payment_data_value.due > 0 %}text-danger {% endif %}">{{purchase_payment_data_value.due}}</span> {% endif %} {% endfor %}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
                                            <td style="display: inline-flex;">
-                                                 <a href="">
-                                                     <button class="btn btn-danger trash"><i class="fa fa-trash"></i></button>
-                                                 </a>
 
-                                                 <a href="">
-                                                    <button class="btn btn-info"><i class="fa fa-pen"></i></button>
-                                                 </a>
+                                                {% for purchase_payment_data_value in purchase_payment_data %}
+                                                    {% if purchase_payment_data_value.purchase_id == purchase_data_value.purchase  %}
+                                                        {% if purchase_payment_data_value.due > 0 %}
+                                                        <input type="hidden" class="pay_id" name="pay_id" value="{{purchase_data_value.purchase}}" />
+                                                            <button class="btn btn-success pay_new" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-money-bill"></i></button>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor %}
 
-                                               <a href="">
-                                                     <button class="btn btn-warning"><i class="fa fa-times-circle"></i></button>
-                                                </a>
 
                                             </td>
                                         </tr>
@@ -86,6 +104,133 @@
                             </div>
                         </div>
                 </div>
-<script src="{% static 'admin_asset/second_dist/js/lightbox.js' %}"></script>
 
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Payment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <div style="text-align: center;">
+                 <img class="loader" src="{% static 'admin_asset/loader.gif'%}" style="height: 20px;display: none;">
+             </div>
+
+            <div class="form-group">
+                <label for="exampleCoverImage">Total</label>
+                <input type="hidden" readonly class="form-control id"/>
+                <input type="text" readonly class="form-control total"/>
+            </div>
+            <div class="form-group">
+                <label for="exampleCoverImage">Paid</label>
+                <input type="text" readonly class="form-control pay"/>
+            </div>
+             <div class="form-group">
+                <label for="exampleCoverImage">Due</label>
+                <input type="hidden" class="form-control hid_due"/>
+                <input type="text" readonly class="form-control due"/>
+            </div>
+            <div class="form-group">
+                <label for="exampleCoverImage">Now Pay</label>
+                <input type="text" class="form-control now_pay"/>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary new_payment">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'admin_asset/second_dist/js/lightbox.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+   $(".pay_new").click(function(){
+       $(".new_payment").hide();
+       var pay_id = $(this).closest("td").find(".pay_id").val();
+       csrf='{{ csrf_token }}';
+       $.ajax({
+                url:"{% url 'new_pay' %}",
+                type:'POST',
+                data:{'pay_id':pay_id,'csrfmiddlewaretoken':csrf},
+                success:function(data)
+                {
+                    //console.log(data);
+                    $(".total").val(data[0].fields.total);
+                    $(".pay").val(data[0].fields.pay);
+                    $(".due").val(data[0].fields.due);
+                    $(".hid_due").val(data[0].fields.due);
+                    $(".id").val(data[0].pk);
+                }
+
+       });
+   });
+
+   $(".now_pay").unbind().keyup(function(){
+       var now_pay=$(this).val();
+        var paid=$(".pay").val();
+        var grand_total=$(".total").val();
+        var due=$(".due").val();
+        var act_due=$(".hid_due").val();
+        if(parseInt(now_pay)>parseInt(act_due))
+        {
+            swal("Sorry!", "Your Payment Is Greater Than Due!", "error");
+            $(this).val('');
+            $(".due").val(act_due);
+        }
+        else if(now_pay==0)
+        {
+             $(".new_payment").hide();
+             $(".due").val(act_due);
+        }
+        else
+        {
+                $(".new_payment").show();
+                var now_pay_total=parseInt(now_pay)+parseInt(paid);
+                //alert(now_pay_total);
+                var now_due=grand_total-now_pay_total;
+                $(".due").val(now_due);
+        }
+
+
+   });
+
+   $(".new_payment").unbind().click(function(){
+       //alert("ok");
+            var pk=$(".id").val();
+            var now_pay=$(".now_pay").val();
+            var csrf='{{ csrf_token }}';
+            $(".loader").show();
+             setTimeout(function(){
+                $.ajax({
+                        url:"{% url 'new_due_payment' %}",
+                        type:'POST',
+                        data:{'pk':pk,'now_pay':now_pay,'csrfmiddlewaretoken':csrf},
+                         success:function(r){
+                            console.log(r);
+                            if(r == "Updated")
+                            {
+                                $(".loader").hide("slow");
+                                swal("Success!", "Payment Updated", "success");
+                                setTimeout(function(){
+                                    location.reload();
+                                },2000);
+
+                            }
+                        }
+                });
+            }, 3000);
+
+   });
+
+
+});
+</script>
 {% endblock maincontent %}

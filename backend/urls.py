@@ -70,6 +70,8 @@ urlpatterns = [
 
 
     path('purchase', purchase_views.purchase, name="purchase"),
+    path('purchase/new_pay', purchase_views.new_pay, name="new_pay"),
+    path('purchase/report/new_due_payment', purchase_views.new_due_payment, name="new_due_payment"),
     path('purchase/report', purchase_views.purchase_report, name="purchase_report"),
     path('product_data_get', purchase_views.product_data_get, name="product_data_get"),
 ]

@@ -8,6 +8,7 @@ from purchase.forms.purchase import PurchaseForm
 from .models import PurchaseModel, PurchaseChildModel, PurchasePaymentModel, StockModel
 from product_template.models import ProductTemplate
 import time
+from django.db.models import Sum
 
 
 @login_required
@@ -61,9 +62,14 @@ def purchase(request):
 
 @login_required
 def purchase_report(request):
-    purchase_data = PurchaseChildModel.objects.all()
+    purchase_data_grp = PurchaseChildModel.objects.values('purchase').annotate(total=Sum('sub_total'),
+                                                                               qty=Sum('quantity'))
+    purchase_main_data = PurchaseChildModel.objects.all()
+    purchase_payment_data = PurchasePaymentModel.objects.all()
     context = {
-        'purchase_data': purchase_data
+        'purchase_data_grp': purchase_data_grp,
+        'purchase_main_data': purchase_main_data,
+        'purchase_payment_data': purchase_payment_data
     }
     return render(request, 'backend/Purchase/purchase_report.html', context)
 
@@ -74,3 +80,26 @@ def product_data_get(request):
     product_data = ProductTemplate.objects.filter(pk=product_id)
     value = serializers.serialize('json', product_data)
     return HttpResponse(value, content_type="application/json")
+
+
+@login_required
+def new_pay(request):
+    code = request.POST.get('pay_id')
+    purchase_payment = PurchasePaymentModel.objects.filter(purchase_id=code)
+    value = serializers.serialize('json', purchase_payment)
+    return HttpResponse(value, content_type="application/json")
+
+
+@login_required
+def new_due_payment(request):
+    #return HttpResponse("ok")
+
+    if request.method == "POST":
+        pk = request.POST.get('pk')
+        new_pay = request.POST.get('now_pay')
+        data = get_object_or_404(PurchasePaymentModel, pk=pk)
+        if data:
+            data.pay = int(data.pay) + int(new_pay)
+            data.due = int(data.due) - int(new_pay)
+            data.save()
+            return HttpResponse("Updated")

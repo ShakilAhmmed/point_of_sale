@@ -65,11 +65,11 @@
                                             <td>
                                                 <table>
                                                     <tr>
-                                                       <td>{% for purchase_main_data_value in purchase_main_data%} {% if purchase_main_data_value.purchase_id == purchase_data_value.purchase  %} &nbsp; {{purchase_main_data_value.product_name}} {% endif %}{% endfor %}</td>
+                                                       <td>{% for purchase_main_data_value in purchase_main_data%} {% if purchase_main_data_value.purchase_id == purchase_data_value.purchase  %} &nbsp;<br><span><i class="fa fa-angle-right"></i>&nbsp;{{purchase_main_data_value.product_name}}</span>  {% endif %}{% endfor %}</td>
                                                     </tr>
                                                 </table>
                                             </td>
-                                            <td>{% for purchase_main_data_value in purchase_main_data%} {% if purchase_main_data_value.purchase_id == purchase_data_value.purchase  %} &nbsp;  {{purchase_main_data_value.product_name.product_cost_price}} {% endif %}{% endfor %}</td>
+                                            <td>{% for purchase_main_data_value in purchase_main_data%} {% if purchase_main_data_value.purchase_id == purchase_data_value.purchase  %} <br><span><i class="fa fa-angle-right"></i>&nbsp; &nbsp;  {{purchase_main_data_value.product_name.product_cost_price}} </span> {% endif %}{% endfor %}</td>
                                             <td>{{purchase_data_value.qty}}</td>
                                             <td>{{purchase_data_value.total}}</td>
                                             <td>

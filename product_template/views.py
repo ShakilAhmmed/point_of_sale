@@ -183,5 +183,6 @@ def product_template_delete(request, pk):
                 os.remove(other_images_data.product_image.path)
     other_images.delete()
     product_template_data.delete()
+
     messages.info(request, 'Product Template Deleted Successfully')
     return HttpResponseRedirect(reverse('product_template_report'))

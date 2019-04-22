@@ -306,8 +306,8 @@ $(document).ready(function(){
                     type:'POST',
                     data:{'product_id':product_id,'csrfmiddlewaretoken':csrf},
                     success:function(data){
-                        row.find(".unit_cost").val(data[0].fields.product_mrp);
-                        row.find("input[name='unit_cost']").val(data[0].fields.product_mrp)
+                        row.find(".unit_cost").val(data[0].fields.product_cost_price);
+                        row.find("input[name='unit_cost']").val(data[0].fields.product_cost_price)
                         //$(".unit_cost").val(data[0].fields.product_mrp);
                     }
             });

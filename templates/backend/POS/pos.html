@@ -1,6 +1,9 @@
 {% extends 'backend/index.html' %}
 {% block title %}Admin|POS{% endblock title %}
+{% load staticfiles %}
 {% block maincontent %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
  <div class="main-content">
 
 
@@ -8,125 +11,78 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Stock Status</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <div class="form-group" style="font-size: 23px;text-align: center;">
+                <input type="hidden" class="add_to_cart_product_id"  />
+                <span class="stock"></span>&nbsp;Products In Stock
+        </div>
+
+        <div class="form-group">
+                <label for="exampleCoverImage">Please Enter Your Quantity</label>
+                <input type="text" class="form-control quantity"/>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary add_to_cart"><i class="fa fa-cart-arrow-down"></i></button>
       </div>
     </div>
   </div>
 </div>
-
+                     <form action="" method="GET">
                         <div class="row">
-                            <div class="col-sm-3 mb-5">
-                                     <input type="search"  data-placeholder="Type Product Code Here" class="form-control search">
-                            </div>
-                            <div class="col-sm-3 mb-5">
-                                    <button class="btn btn-info"><i class="fa fa-search"></i></button>
-                            </div>
-                        </div>
 
+                                <div class="col-sm-3 mb-5">
+                                         <input type="search" name="search" {% if values %} value="{{values.search}}" {% endif %} data-placeholder="Type Product Code Here" class="form-control">
+                                </div>
+                                 <div class="col-sm-3 mb-5">
+                                        <button class="btn btn-info" name="submit"><i class="fa fa-search"></i></button>
+                                         {% if values.search %}
+                                        <a class="btn btn-info" href="{% url 'pos' %}"><i class="fa fa-backward"></i></a>
+                                        {% endif %}
+                                </div>
+                                 <div class="col-sm-3 mb-5" style="    margin-left: -210px;">
+                                         <select type="text"  class="js-example-basic-single form-control custmer_name">
+                                            <option>--SELECT A CUSTOMER --</option>
+                                            <option style="color: green;">Walk On</option>
+                                            {% for customer_value in customer %}
+                                                <option value="{{customer_value.customer_code}}">{{customer_value.customer_name}}({{customer_value.customer_code}})</option>
+                                            {% endfor %}
+                                         </select>
+                                </div>
+                        </div>
+                     </form>
                       <div class="row">
 
                           <div class="col-sm-9">
                             <div class="row">
+
+                            {% for products_data in products %}
                               <div class="col-sm-3">
                                 <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
+                                <a class="example-image-link" href="{{products_data.cover_image.url}}" data-lightbox="example-1"><img class="card-img-top" height="220px" {% if products_data.cover_image %} src="{{products_data.cover_image.url}}" {% else %} src="{% static 'admin_asset/img/auth/blank_img.png' %}"  {% endif %} onerror='this.src="{% static 'admin_asset/img/auth/blank_img.png' %}"' alt="image-1" /></a>
 
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
+                                  <div class="card-body">
+                                    <h5 class="card-title">{{products_data.product_name}}</h5>
+                                    <p>Code    : {{products_data.product_code}}</p>
+                                    <p>Company : {{products_data.product_brand_name}}</p>
+                                    <p>Price   : {{products_data.product_mrp}}</p>
+                                    <input type="hidden" class="product_id" value="{{products_data.pk}}">
+                                    <button type="button" class="btn btn-primary cart" data-toggle="modal" data-target="#exampleModal">
+                                      <i class="fa fa-cart-plus"></i>
                                     </button>
                                   </div>
                                 </div>
                               </div>
-                              <div class="col-sm-3">
-                                  <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
+                            {% endfor %}
 
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                  <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-
-
-
-
-                              <div class="col-sm-3">
-                                <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                  <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                  <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="col-sm-3">
-                                <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
+                            <!--
+                                    <div class="col-sm-3">
                                   <div class="card" style="">
                                   <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
                                   <div class="card-body">
@@ -168,6 +124,31 @@
                                   <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
 
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                      Select
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-3">
+                                  <div class="card" style="">
+                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                      Select
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col-sm-3">
+                                <div class="card" style="">
+                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+
                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                                       Select
                                     </button>
@@ -186,10 +167,60 @@
                                   </div>
                                 </div>
                               </div>
-                            </div>
+                              <div class="col-sm-3">
+                                  <div class="card" style="">
+                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+
+                                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                      Select
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-3">
+                                <div class="card" style="">
+                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                      Select
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-3">
+                                  <div class="card" style="">
+                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+
+                                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                      Select
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-3">
+                                  <div class="card" style="">
+                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                      Select
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+
+                            -->
+                             </div>
                           </div>
                           <div class="col-sm-3">
-                              <div class="card" style="    margin-left: 0%;
+                              <div class="card" style="    margin-left: -8%;
     width: 289px;
     height: 63.5%;">
                                   <div class="card-body">
@@ -226,4 +257,73 @@
                     </div>
 
                 </div>
+<script src="{% static 'admin_asset/second_dist/js/lightbox.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.js-example-basic-single').select2();
+        $(".cart").click(function() {
+            $(".add_to_cart").hide();
+            $(".quantity").val('');
+            var csrf='{{ csrf_token }}';
+            var product_id = $(this).closest("div").find(".product_id").val();
+            $.ajax({
+                    url:"{% url 'stock_data' %}",
+                    type:"POST",
+                    data:{'product_id':product_id,'csrfmiddlewaretoken':csrf},
+                    success:function(data){
+                        $(".stock").html(data);
+                        $(".add_to_cart_product_id").val(product_id);
+                        if(parseInt(data)==0)
+                        {
+                            $(".stock").addClass('text-danger');
+                            $(".stock").removeClass('text-success');
+                        }
+                        else
+                        {
+                             $(".stock").addClass('text-success');
+                        }
+                    }
+            });
+        });
+
+        $(".quantity").keyup(function(){
+            var quantity=$(this).val();
+            var stock=$(".stock").html();
+               if(parseInt(quantity)>parseInt(stock))
+               {
+                     swal("Sorry!", "Quantity Is Greater Than Our Stock", "error");
+                      $(".add_to_cart").hide();
+                      $(".quantity").val('');
+               }
+               else if(quantity==0)
+               {
+                    $(".add_to_cart").hide();
+               }
+               else
+               {
+                    $(".add_to_cart").show();
+               }
+        });
+
+        $(".add_to_cart").click(function(){
+            var add_to_cart_product_id=$(".add_to_cart_product_id").val();
+            var quantity=$(".quantity").val();
+            var csrf='{{ csrf_token }}';
+            $.ajax({
+                    url:"{% url 'add_to_cart' %}",
+                    type:"POST",
+                    data:{'add_to_cart_product_id':add_to_cart_product_id,'quantity':quantity,'csrfmiddlewaretoken':csrf},
+                    success:function(data){
+                        console.log(data)
+                    }
+            });
+
+        });
+
+
+
+    });
+</script>
 {% endblock maincontent %}

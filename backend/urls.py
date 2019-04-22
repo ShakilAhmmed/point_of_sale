@@ -67,6 +67,8 @@ urlpatterns = [
 
 
     path('pos', pos_section_views.pos, name="pos"),
+    path('pos/stock_data', pos_section_views.stock_data, name="stock_data"),
+    path('pos/add_to_cart', pos_section_views.add_to_cart, name="add_to_cart"),
 
 
     path('purchase', purchase_views.purchase, name="purchase"),

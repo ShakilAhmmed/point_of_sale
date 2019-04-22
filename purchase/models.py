@@ -11,7 +11,7 @@ from product_template.models import ProductTemplate
 
 class PurchaseModel(models.Model):
     date = models.DateField()
-    company_name = models.ForeignKey(Company, on_delete=models.DO_NOTHING)
+    company_name = models.ForeignKey(Company, on_delete=models.CASCADE)
     supplier_name = models.ForeignKey(SupplierModel, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -19,7 +19,7 @@ class PurchaseModel(models.Model):
 
 class PurchaseChildModel(models.Model):
     purchase = models.ForeignKey(PurchaseModel, on_delete=models.CASCADE)
-    product_name = models.ForeignKey(ProductTemplate, on_delete=models.DO_NOTHING)
+    product_name = models.ForeignKey(ProductTemplate, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     sub_total = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)

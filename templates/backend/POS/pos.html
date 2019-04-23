@@ -221,7 +221,7 @@
                           </div>
                           <div class="col-sm-3">
                               <div class="card" style="    margin-left: -8%;
-    width: 289px;
+    width: 320px;
     height: 63.5%;">
                                   <div class="card-body">
                                     <div>
@@ -233,20 +233,24 @@
                                                 <th>Sub Total</th>
                                             </tr>
 
+                                        {% for cart_data in cart %}
+
                                             <tr>
-                                                <td>Coffe</td>
-                                                <td>120</td>
+
+                                                <td>{{cart_data.product}}</td>
+                                                <td>{{cart_data.price}}</td>
                                                 <td>
-                                                  <input type="number" style="width: 64px;margin-left: -12px;" class="form-control" name="">
+                                                  <input type="number" style="width: 64px;margin-left: -12px;" value="{{cart_data.quantity}}" class="form-control quantity_update" name="">
                                                 </td>
                                                 <td>
                                                     <input style="width: 45px;" type="text" class="form-control" name="">
                                                 </td>
+                                                 <td><input type="hidden" class="cart_remove_pk" value="{{cart_data.product.pk}}"></td>
                                                 <td>
-                                                   <button style="margin-left: -50%;"><i class="far fa-trash-alt"></i></button>
+                                                   <button style="margin-left: -50%;" class="remove_cart"><i class="far fa-trash-alt"></i></button>
                                                 </td>
                                             </tr>
-
+                                        {% endfor %}
 
                                         </table>
                                     </div>
@@ -269,7 +273,7 @@
             var csrf='{{ csrf_token }}';
             var product_id = $(this).closest("div").find(".product_id").val();
             $.ajax({
-                    url:"{% url 'stock_data' %}",
+                    url:"{% url 'stock_data'  %}",
                     type:"POST",
                     data:{'product_id':product_id,'csrfmiddlewaretoken':csrf},
                     success:function(data){
@@ -308,18 +312,70 @@
         });
 
         $(".add_to_cart").click(function(){
-            var add_to_cart_product_id=$(".add_to_cart_product_id").val();
+            var product_id=$(".add_to_cart_product_id").val();
             var quantity=$(".quantity").val();
-            var csrf='{{ csrf_token }}';
+            var csrf='{{csrf_token}}';
+            var url="{% url 'add_to_cart' %}";
             $.ajax({
-                    url:"{% url 'add_to_cart' %}",
+                    url:url,
                     type:"POST",
-                    data:{'add_to_cart_product_id':add_to_cart_product_id,'quantity':quantity,'csrfmiddlewaretoken':csrf},
+                    data:{'add_to_cart_product_id':product_id,'quantity':quantity,'csrfmiddlewaretoken':csrf},
                     success:function(data){
-                        console.log(data)
+                        if(data=="Added")
+                         {
+                            swal("Success!", "Product Added Into Cart", "success");
+                             setTimeout(function(){
+                                window.location.reload();
+                            },1000);
+                         }
                     }
             });
 
+        });
+
+
+        $(document).on("click",".remove_cart",function(){
+                    var product_id=$(this).closest("tr").find(".cart_remove_pk").val();
+                    var csrf="{{csrf_token}}";
+
+                    $.ajax({
+                            url:"{% url 'cart_remove' %}",
+                            type:"POST",
+                            data:{'product_id':product_id,'csrfmiddlewaretoken':csrf},
+                            success:function(r){
+
+                                if(r=="Deleted")
+                                {
+                                        swal("Success!", "Product Deleted From Cart", "success");
+                                         setTimeout(function(){
+                                            window.location.reload();
+                                        },1000);
+                                }
+                            }
+                    });
+        });
+
+        $(document).on("change keyup",".quantity_update",function(){
+              var product_id=$(this).closest("tr").find(".cart_remove_pk").val();
+              var update_quantity=$(this).val();
+              var url="{% url 'add_to_cart' %}";
+              var csrf="{{csrf_token}}";
+            $.ajax({
+                    url:url,
+                    type:"POST",
+                    data:{'add_to_cart_product_id':product_id,'update_quantity':update_quantity,'csrfmiddlewaretoken':csrf},
+                    success:function(data){
+                        console.log(data);
+                        if(data=="Updated")
+                         {
+                            swal("Success!", "Product Quantity Updated ", "success");
+                             setTimeout(function(){
+                                window.location.reload();
+                            },1000);
+
+                         }
+                    }
+            });
         });
 
 

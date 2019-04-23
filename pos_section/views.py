@@ -1,3 +1,5 @@
+import time
+from datetime import date
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
@@ -10,6 +12,7 @@ from purchase.models import StockModel
 
 from customer_supplier.models import CustomerModel
 from .cart import Cart
+from .models import CartParentModel, CartPaymentModel, CartProductModel
 
 
 @login_required
@@ -83,3 +86,40 @@ def cart_remove(request):
         product = get_object_or_404(ProductTemplate, id=product_id)
         cart.remove(product)
         return HttpResponse("Deleted")
+
+
+@login_required
+def cart_save(request):
+    invoice_id = int(time.time())
+    today = date.today()
+    cart_product = request.POST.getlist('cart_product[]', None)
+    quantity_update = request.POST.getlist('quantity_update[]', None)
+    cart_sub_total = request.POST.getlist('cart_sub_total[]', None)
+    cart_pay = request.POST.get('cart_pay', None)
+    cart_total = request.POST.get('cart_total', None)
+    change_due = request.POST.get('change_due', '0')
+    custmer_name = request.POST.get('custmer_name', None)
+    if cart_product and quantity_update and cart_sub_total and cart_pay and cart_total is not None:
+        cart_parent = CartParentModel()
+        cart_parent.date = today
+        cart_parent.customer = custmer_name
+        cart_parent.invoice_id = invoice_id
+        cart_parent.save()
+        for i in range(len(cart_product)):
+            product_get = get_object_or_404(ProductTemplate, pk=cart_product[i])
+            cart_product_data = CartProductModel()
+            cart_product_data.cart_parent_id = cart_parent.pk
+            cart_product_data.invoice_id = invoice_id
+            cart_product_data.product = product_get
+            cart_product_data.product_price = product_get.product_mrp
+            cart_product_data.product_quantity = quantity_update[i]
+            cart_product_data.product_subtotal = cart_sub_total[i]
+            cart_product_data.save()
+        cart_payment = CartPaymentModel()
+        cart_payment.cart_parent_id = cart_parent.pk
+        cart_payment.invoice_id = invoice_id
+        cart_payment.total = cart_total
+        cart_payment.pay = cart_pay
+        cart_payment.change_due = change_due
+        cart_payment.save()
+        return HttpResponse(invoice_id)

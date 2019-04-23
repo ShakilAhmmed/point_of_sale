@@ -48,8 +48,8 @@
                                 </div>
                                  <div class="col-sm-3 mb-5" style="    margin-left: -210px;">
                                          <select type="text"  class="js-example-basic-single form-control custmer_name">
-                                            <option>--SELECT A CUSTOMER --</option>
-                                            <option style="color: green;">Walk On</option>
+                                            <option value="walk_on">--SELECT A CUSTOMER --</option>
+                                            <option value="walk_on">Walk On</option>
                                             {% for customer_value in customer %}
                                                 <option value="{{customer_value.customer_code}}">{{customer_value.customer_name}}({{customer_value.customer_code}})</option>
                                             {% endfor %}
@@ -81,142 +81,6 @@
                               </div>
                             {% endfor %}
 
-                            <!--
-                                    <div class="col-sm-3">
-                                  <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                  <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                  <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                  <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="col-sm-3">
-                                <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                  <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                  <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                  <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                  <div class="card" style="">
-                                  <img class="card-img-top" src="http://bk-latam-prod.s3.amazonaws.com/sites/burgerking.com.mx/files/BBQ-500X540_3.png" alt="Card image cap">
-                                  <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                      Select
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-
-                            -->
                              </div>
                           </div>
                           <div class="col-sm-3">
@@ -231,27 +95,59 @@
                                                 <th>Price</th>
                                                 <th>Quantity</th>
                                                 <th>Sub Total</th>
+                                                <th></th>
                                             </tr>
 
                                         {% for cart_data in cart %}
 
                                             <tr>
 
-                                                <td>{{cart_data.product}}</td>
-                                                <td>{{cart_data.price}}</td>
+                                                <td >{{cart_data.product}}
+                                                   <input type="hidden" class="cart_over" value="{{cart_data.product}}" />
+                                                   <input type="hidden" class="cart_product" value="{{cart_data.product.pk}}">
+                                                </td>
+                                                <td class="cart_price">{{cart_data.price}}</td>
                                                 <td>
                                                   <input type="number" style="width: 64px;margin-left: -12px;" value="{{cart_data.quantity}}" class="form-control quantity_update" name="">
                                                 </td>
                                                 <td>
-                                                    <input style="width: 45px;" type="text" class="form-control" name="">
+                                                    <input style="width: 45px;"  value="{{cart_data.total_price}}" readonly type="text" class="form-control cart_sub_total" name="">
                                                 </td>
                                                  <td><input type="hidden" class="cart_remove_pk" value="{{cart_data.product.pk}}"></td>
                                                 <td>
-                                                   <button style="margin-left: -50%;" class="remove_cart"><i class="far fa-trash-alt"></i></button>
+                                                   <button style="margin-left: -85%;" class="remove_cart btn btn-danger"><i class="far fa-trash-alt"></i></button>
                                                 </td>
                                             </tr>
                                         {% endfor %}
 
+                                        </table>
+<style type="text/css">
+ .total{
+     height: 45px;
+    background-color: #67a4da;
+ }
+</style>
+
+                                        <table class="table"  style="width: 100%;text-align: center;">
+                                            <tr>
+                                                <td style="height: 45px;" class="total">Total</td>
+                                                <td class="cart_total">{{ cart.get_total_price }}</td>
+                                            </tr>
+                                             <tr>
+                                                <td style="height: 45px;" class="total">Pay Type</td>
+                                                <td>Cash</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 45px;" class="total">Pay</td>
+                                                <td><input type="text" class="form-control cart_pay"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 45px;" class="total">Change Due</td>
+                                                <td><input type="text" readonly class="form-control cart_change_due"></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"><input type="submit" style="display: none;" data-toggle="modal" data-target="#exampleModalSecond" value="Submit" class="btn btn-success cart_success"></td>
+                                            </tr>
                                         </table>
                                     </div>
 
@@ -261,12 +157,68 @@
                     </div>
 
                 </div>
+
+
+<div class="modal fade" id="exampleModalSecond" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content" style="width: 325px;">
+    <div  id="print">
+      <div class="modal-header">
+        <div class="col-sm-12">
+            <h6 class="text-center">TMSS DEPARTMENTAL STORE </h6>
+            <span class="text-center" style="margin-left: 45px;">Address:Kazipara,TMSS Road</span>
+            <br>
+            <span class="text-center" style="margin-left: 62px;">Phone:018499420523</span>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                  <p>Cash Sale</p>
+                  <p><span class="invoice_id"></span></p>
+            </div>
+            <div class="col-sm-6">
+                <p>22 April 2019</p>
+                <span>4:20</span>
+            </div>
+        </div>
+          <div class="cart_overview"></div>
+        <hr>
+        <table>
+            <tr>
+                <td>Total : </td>
+                <td><span class="cart_over_total"></span></td>
+            </tr>
+            <tr>
+                <td>Pay : </td>
+                <td><span class="cart_over_pay"></span></td>
+            </tr>
+            <tr>
+                <td>Change Due : </td>
+                <td><span class="cart_over_due"></span></td>
+            </tr>
+        </table>
+      </div>
+    </div>
+
+      <div class="modal-footer">
+            <div class="text-center">
+                <button  type="button" class="btn btn-primary print_bt"><i class="fa fa-print"></i></button>
+            </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="{% static 'admin_asset/second_dist/js/lightbox.js' %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function(){
         $('.js-example-basic-single').select2();
+
         $(".cart").click(function() {
             $(".add_to_cart").hide();
             $(".quantity").val('');
@@ -378,8 +330,140 @@
             });
         });
 
+        $(".cart_pay").keyup(function(){
+              var cart_pay=$(this).val();
+              var cart_total=$(".cart_total").html();
+              if(parseInt(cart_pay)>parseInt(cart_total))
+              {
+                  var change_due=parseInt(cart_total)-parseInt(cart_pay);
+                  $(".cart_change_due").val( Math.abs(change_due));
+                  $(".cart_success").show();
+              }
+              else if(parseInt(cart_pay)==parseInt(cart_total))
+              {
+                    $(".cart_success").show();
+              }
+              else
+              {
+                  $(".cart_success").hide();
+                  $(".cart_change_due").val('');
+              }
+
+        });
+
+        $(".cart_success").click(function() {
+            var cart_product=[];
+            var quantity_update=[];
+            var cart_sub_total=[];
+            var cart_pay=$(".cart_pay").val();
+            var cart_total=$(".cart_total").html();
+            var change_due=$(".cart_change_due").val();
+            var custmer_name=$(".custmer_name").val();
+            var cart_price=[];
+            var cart_over=[];
+               $('.cart_over').each(function(){
+                 value=$(this).val();
+                 if (value!='')
+                 {
+                        cart_over.push(value);
+                 }
+
+             });
+            $('.cart_price').each(function(){
+                 value=$(this).html();
+                 if (value!='')
+                 {
+                        cart_price.push(value);
+                 }
+
+             });
+             $('.cart_product').each(function(){
+                 value=$(this).val();
+                 if (value!='')
+                 {
+                        cart_product.push(value);
+                 }
+
+             });
+             $('.quantity_update').each(function(){
+                 quantity_update.push(parseInt($(this).val()));
+             });
+
+             $('.cart_sub_total').each(function(){
+                 cart_sub_total.push(parseInt($(this).val()));
+             });
+
+             $.ajax({
+                    url:"{% url 'cart_save' %}",
+                    type:"POST",
+                    data:{
+                        'csrfmiddlewaretoken':'{{ csrf_token }}',
+                        'cart_product':cart_product,
+                        'quantity_update':quantity_update,
+                        'cart_sub_total':cart_sub_total,
+                        'cart_pay':cart_pay,
+                        'cart_total':cart_total,
+                        'change_due':change_due,
+                        'custmer_name':custmer_name
+
+                    },
+                    success:function(cart_saving){
+                        console.log(cart_saving);
+                        if(cart_saving)
+                        {
+                            $(".invoice_id").html(cart_saving);
+                            $(".cart_over_total").html(cart_total);
+                            $(".cart_over_pay").html(cart_pay);
+                            $(".cart_over_due").html(change_due);
+                            var table="";
+                            table+="<table class=\"table\">";
+                            table+="<tr>";
+                                table+="<th>Product</th>";
+                                table+="<th>Qty</th>";
+                                table+="<th>Price</th>";
+                                table+="<th>SubTotal</th>";
+                            table+="</tr>";
+                            for(var i=0;i<cart_over.length;i++)
+                            {
+                                table+="<tr>";
+                                    table+="<td>"+cart_over[i]+"</td>";
+                                    table+="<td>"+quantity_update[i]+"</td>";
+                                    table+="<td>"+cart_price[i]+"</td>";
+                                    table+="<td>"+cart_sub_total[i]+"</td>";
+                                table+="</tr>";
+                            }
+                            console.log(table);
+                            table+="</table>";
+                            $(".cart_overview").html(table);
+
+                        }
+                    }
+             });
+
+              // alert(cart_product);
+              // alert(quantity_update);
+              // alert(cart_sub_total);
+              // alert(cart_pay);
+              // alert(cart_total);
+              // alert(change_due);
+
+
+        });
+
 
 
     });
+function printData()
+{
+   var divToPrint=document.getElementById("print");
+   newWin= window.open("");
+   newWin.document.write(divToPrint.outerHTML);
+   newWin.print();
+   newWin.close();
+}
+
+$('.print_bt').on('click',function(){
+printData();
+})
 </script>
 {% endblock maincontent %}

@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core import serializers
 from product_template.models import ProductTemplate
 from django.db.models import Q
@@ -9,6 +9,7 @@ from django.db.models import Q
 from purchase.models import StockModel
 
 from customer_supplier.models import CustomerModel
+from .cart import Cart
 
 
 @login_required
@@ -24,13 +25,11 @@ def pos(request):
         else:
             products = ProductTemplate.objects.filter(product_name__contains=search_key, product_status='Active',
                                                       is_published=True)
-    session_product = request.session.get('products_details', None)
-    print("Session Data Get", session_product)
+
     context = {
         'customer': customer,
         'products': products,
         'values': request.GET,
-        'session_product': session_product
     }
     return render(request, 'backend/POS/pos.html', context)
 
@@ -44,8 +43,19 @@ def stock_data(request):
 
 @login_required
 def add_to_cart(request):
-    add_to_cart_product_id = request.POST.get('add_to_cart_product_id')
-    quantity = request.POST.get('quantity')
+    cart = Cart(request)
+    product_id = request.POST.get('add_to_cart_product_id', None)
+    products = get_object_or_404(ProductTemplate, pk=product_id)
+    quantity = request.POST.get('quantity', None)
+    update_quantity = request.POST.get('update_quantity', None)
+
+    if products and quantity is not None:
+        data = cart.add(product=products, quantity=int(quantity))
+        return HttpResponse("Added")
+    elif update_quantity is not None:
+        data = cart.add(product=products, quantity=int(update_quantity), update_quantity=int(update_quantity))
+        return HttpResponse("Updated")
+    # return HttpResponse(update_quantity)
     # cart_data = {}
     # cart_data['product_id'] = add_to_cart_product_id
     # cart_data['quantity'] = quantity
@@ -64,4 +74,12 @@ def add_to_cart(request):
     # print("If None", session_products_details)
     # print("If Not None", previous_session_data)
 
-    return HttpResponse(cart_data)
+
+@login_required
+def cart_remove(request):
+    cart = Cart(request)
+    product_id = request.POST.get('product_id', None)
+    if product_id is not None:
+        product = get_object_or_404(ProductTemplate, id=product_id)
+        cart.remove(product)
+        return HttpResponse("Deleted")

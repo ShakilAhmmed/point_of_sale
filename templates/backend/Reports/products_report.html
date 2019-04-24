@@ -1,0 +1,104 @@
+{% extends 'backend/index.html' %}
+{% block title %}Admin|CustomerReport{% endblock title %}
+{% load staticfiles %}
+{% block maincontent %}
+<div class="main-content">
+
+    <div style="display: inline-flex;">
+                         <div class="view">#</div>
+                         <div class="view">BRAND</div>
+                         <div class="view">PRODUCT STATUS</div>
+                         <div class="view"></div>
+
+    </div>
+            <div style="display: -webkit-box;">
+                         <div class="form-group">
+                          <div class="col-sm-2">
+                                <input type="text" class="form-control all_data" style="width: 200px">
+                          </div>
+                        </div>
+                         <div class="form-group">
+                          <div class="col-sm-2">
+                            <select type="text" class="form-control brand" style="width: 200px;margin-left: -11px;">
+                                <option value="">--Select--</option>
+                                {% for company_data_value in company_data%}
+                                    <option value="{{company_data_value.pk}}">{{company_data_value.company_name}}</option>
+                                {% endfor %}
+                            </select>
+                          </div>
+                        </div>
+
+                      <div class="form-group">
+                          <div class="col-sm-2">
+                            <select type="text" class="form-control status" style="width: 200px;margin-left: -15px;">
+                                <option value="">--Select--</option>
+                                <option>Active</option>
+                                <option>Inactive</option>
+                            </select>
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          <div class="col-sm-2">
+                            <select type="text" class="form-control act" style="width: 200px;margin-left: -15px;">
+                                <option value="">--Select--</option>
+                                <option value="0">Draft</option>
+                                <option value="1">IsPublished</option>
+                            </select>
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          <div class="col-sm-2" style="margin-left: 35px;">
+                                <button class="btn btn-info search"><i class="fa fa-search"></i></button>
+                          </div>
+                      </div>
+                </div>
+       <div style="text-align: center;">
+        <img class="loader" src="{% static 'admin_asset/loader.gif'%}" style="height: 20px;display: none;">
+      </div>
+      <br><br><br>
+      <div class="report_data_show"></div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".search").unbind().click(function() {
+            $('html,body').css('cursor','wait');
+            $("html").css({ 'background-color' : 'black', 'opacity' : '0.5' });
+             $(".loader").show();
+
+            var all_data=$(".all_data").val();
+            var brand=$(".brand").val();
+            var status=$(".status").val();
+            var act=$(".act").val();
+            setTimeout(function(){
+                $.ajax({
+                        url:"{% url 'products_report' %}",
+                        type:"POST",
+                        data:{
+                            'all_data':all_data,
+                            'brand':brand,
+                            'status':status,
+                            'act':act,
+                            'csrfmiddlewaretoken':"{{csrf_token}}"
+                        },
+                        success:function(data){
+                                console.log(data);
+                                $(".report_data_show").html(data);
+                        }
+
+
+
+                });
+                $('html,body').css('cursor','default');
+                $("html").css({ 'background-color' : '', 'opacity' : '' });
+                 $(".loader").hide();
+            }, 2000);
+
+
+
+        });
+    });
+</script>
+{% endblock maincontent %}

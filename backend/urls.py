@@ -9,6 +9,8 @@ from customer_supplier import views as customer_supplier_views
 from pos_section import views as pos_section_views
 from purchase import views as purchase_views
 from stock import views as stock_views
+from reports import views as report_views
+
 urlpatterns = [
     path('', views.backend_home, name="backend_home"),
     path('create_admin', rbac_views.create_admin, name="create_admin"),
@@ -57,14 +59,11 @@ urlpatterns = [
     path('customer_report/delete/<int:pk>', customer_supplier_views.customer_delete, name="customer_delete"),
     path('customer_report/status/<int:pk>', customer_supplier_views.customer_status, name="customer_status"),
 
-
-
     path('supplier', customer_supplier_views.supplier, name="supplier"),
     path('supplier_report', customer_supplier_views.supplier_report, name="supplier_report"),
     path('supplier_report/delete/<int:pk>', customer_supplier_views.supplier_delete, name="supplier_delete"),
     path('supplier_report/status/<int:pk>', customer_supplier_views.supplier_status, name="supplier_status"),
     path('supplier_report/edit/<int:pk>', customer_supplier_views.supplier_edit, name="supplier_edit"),
-
 
     path('pos', pos_section_views.pos, name="pos"),
     path('pos/stock_data', pos_section_views.stock_data, name="stock_data"),
@@ -72,11 +71,13 @@ urlpatterns = [
     path('pos/cart_remove', pos_section_views.cart_remove, name="cart_remove"),
     path('pos/cart_save', pos_section_views.cart_save, name="cart_save"),
 
-    path('stock',stock_views.stock_data,name="stock"),
+    path('stock', stock_views.stock_data, name="stock"),
 
     path('purchase', purchase_views.purchase, name="purchase"),
     path('purchase/new_pay', purchase_views.new_pay, name="new_pay"),
     path('purchase/report/new_due_payment', purchase_views.new_due_payment, name="new_due_payment"),
     path('purchase/report', purchase_views.purchase_report, name="purchase_report"),
     path('product_data_get', purchase_views.product_data_get, name="product_data_get"),
+
+    path('products_report', report_views.products_report, name="products_report")
 ]

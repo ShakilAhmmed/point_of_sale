@@ -8,7 +8,7 @@ from product_template import views as product_template_views
 from customer_supplier import views as customer_supplier_views
 from pos_section import views as pos_section_views
 from purchase import views as purchase_views
-
+from stock import views as stock_views
 urlpatterns = [
     path('', views.backend_home, name="backend_home"),
     path('create_admin', rbac_views.create_admin, name="create_admin"),
@@ -72,6 +72,7 @@ urlpatterns = [
     path('pos/cart_remove', pos_section_views.cart_remove, name="cart_remove"),
     path('pos/cart_save', pos_section_views.cart_save, name="cart_save"),
 
+    path('stock',stock_views.stock_data,name="stock"),
 
     path('purchase', purchase_views.purchase, name="purchase"),
     path('purchase/new_pay', purchase_views.new_pay, name="new_pay"),

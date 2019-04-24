@@ -24,7 +24,8 @@
 
 .cart_data th{
 	font-size: 10px;
-    background-color: #67a4da;
+    background-color: #418a88;
+    color: white;
 }
 
 
@@ -107,8 +108,11 @@
 }
 
 .sidebar-header{
-        background-color: #117571d6 !important;
+           background-color: #a29bfe !important;
 }
 .sidebar-content{
-    background-color: #354a6ff0 !important;
+    background-color: #a29bfe !important;
+}
+.submenu-content{
+        background-color: #131446b8 !important;
 }

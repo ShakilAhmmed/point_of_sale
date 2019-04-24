@@ -107,6 +107,11 @@ def cart_save(request):
         cart_parent.save()
         for i in range(len(cart_product)):
             product_get = get_object_or_404(ProductTemplate, pk=cart_product[i])
+            stock_data_get = StockModel.objects.filter(product=cart_product[i]).filter(stock_status='Active')[
+                             :int(quantity_update[i])]
+            for stock_data_change in stock_data_get:
+                stock_data_change.stock_status = 'Inactive'
+                stock_data_change.save()
             cart_product_data = CartProductModel()
             cart_product_data.cart_parent_id = cart_parent.pk
             cart_product_data.invoice_id = invoice_id
@@ -122,4 +127,6 @@ def cart_save(request):
         cart_payment.pay = cart_pay
         cart_payment.change_due = change_due
         cart_payment.save()
+        cart = Cart(request)
+        cart.clear()
         return HttpResponse(invoice_id)

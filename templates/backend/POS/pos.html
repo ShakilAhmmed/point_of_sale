@@ -2,6 +2,30 @@
 {% block title %}Admin|POS{% endblock title %}
 {% load staticfiles %}
 {% block maincontent %}
+<script >
+function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+      window.location.reload();
+}
+</script>
+<style type = "text/css">
+
+@media print
+{
+   @page
+   {
+    size: 8.5in 5.5in;
+    size: landscape;
+  }
+}
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
  <div class="main-content">
@@ -167,10 +191,10 @@
     <div  id="print">
       <div class="modal-header">
         <div class="col-sm-12">
-            <h6 class="text-center">TMSS DEPARTMENTAL STORE </h6>
-            <span class="text-center" style="margin-left: 45px;">Address:Kazipara,TMSS Road</span>
+            <h6>TMSS DEPARTMENTAL STORE </h6>
+            <span>Address:Kazipara,TMSS Road</span>
             <br>
-            <span class="text-center" style="margin-left: 62px;">Phone:018499420523</span>
+            <span>Phone:018499420523</span>
         </div>
       </div>
       <div class="modal-body">
@@ -205,7 +229,7 @@
 
       <div class="modal-footer">
             <div class="text-center">
-                <button  type="button" class="btn btn-primary print_bt"><i class="fa fa-print"></i></button>
+                <button onclick="printDiv('print')" type="button" class="btn btn-primary"><i class="fa fa-print"></i></button>
             </div>
 
       </div>
@@ -454,17 +478,17 @@
 
 
     });
-function printData()
-{
-   var divToPrint=document.getElementById("print");
-   newWin= window.open("");
-   newWin.document.write(divToPrint.outerHTML);
-   newWin.print();
-   newWin.close();
-}
-
-$('.print_bt').on('click',function(){
-printData();
-})
+// function printData()
+// {
+//    var divToPrint=document.getElementById("print");
+//    newWin= window.open("");
+//    newWin.document.write(divToPrint.outerHTML);
+//    newWin.print();
+//    newWin.close();
+// }
+//
+// $('.print_bt').on('click',function(){
+// printData();
+// });
 </script>
 {% endblock maincontent %}

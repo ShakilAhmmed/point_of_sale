@@ -1,0 +1,109 @@
+{% extends 'backend/index.html' %}
+{% block title %}Admin|StockReport{% endblock title %}
+{% load staticfiles %}
+{% block maincontent %}
+  <div class="main-content">
+
+                       <div class="card custom_card_table">
+                            <div class="card-header row">
+                                <div class="col col-sm-3">
+                                    <div class="card-options d-inline-block">
+                                        <a href="#"><i class="ik ik-inbox"></i></a>
+                                        <a href="#"><i class="ik ik-plus"></i></a>
+                                        <a href="#"><i class="ik ik-rotate-cw"></i></a>
+                                        <div class="dropdown d-inline-block">
+                                            <a class="nav-link dropdown-toggle" href="#" id="moreDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-more-horizontal"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="moreDropdown">
+                                                <a class="dropdown-item" href="#">Action</a>
+                                                <a class="dropdown-item" href="#">More Action</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6">
+                                    <div class="card-search with-adv-search dropdown">
+                                    </div>
+                                </div>
+                                <div class="col col-sm-3">
+                                    <div class="card-options text-right">
+                                        <span class="mr-5" id="top">1 - 50 of 2,500</span>
+                                        <a href="#"><i class="ik ik-chevron-left"></i></a>
+                                        <a href="#"><i class="ik ik-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table id="advanced_table" class="table" style="width: 100% !important;">
+                                    <thead>
+
+                                        <tr>
+                                            <th class="nosort" width="10">
+                                                <label class="custom-control custom-checkbox m-0">
+                                                    <input type="checkbox" class="custom-control-input" id="selectall" name="" value="option2">
+                                                    <span class="custom-control-label">&nbsp;</span>
+                                                </label>
+                                            </th>
+                                            <th>Sl No</th>
+                                            <th>Product Name(Code)</th>
+                                            <th>Total Purchased</th>
+                                            <th>Quantity On Hand</th>
+                                            <th>Total Sold</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                    {% for purchase_data_grp_value in purchase_data_grp%}
+                                        <tr>
+                                            <td>
+                                                <label class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input select_all_child" id="" name="" value="option2">
+                                                    <span class="custom-control-label">&nbsp;</span>
+                                                </label>
+                                            </td>
+                                            <td>{{forloop.counter}}</td>
+                                            <td>
+                                                  {% for purchase_main_data_value in purchase_main_data%}
+                                                    {% if purchase_main_data_value.pk == purchase_data_grp_value.product_name_id %}
+                                                        {{purchase_main_data_value.product_name}}
+                                                    {% endif%}
+                                                {% endfor %}
+                                            </td>
+                                            <td>{{purchase_data_grp_value.qty}}</td>
+                                            <td>
+                                            {% for stock_data_grp_value in stock_data_grp%}
+                                                    {% if stock_data_grp_value.product_id == purchase_data_grp_value.product_name_id %}
+                                                        {{stock_data_grp_value.stock}}
+                                                    {% endif%}
+                                                {% endfor %}
+
+                                            </td>
+
+                                            <td>
+                                            {% for total_sale_value in total_sale%}
+                                                    {% if total_sale_value.product_id == purchase_data_grp_value.product_name_id %}
+                                                        {{total_sale_value.sale}}
+                                                    {% endif%}
+                                                {% endfor %}
+
+                                            </td>
+
+                                        </tr>
+                                      {% endfor %}
+                                       <tr style="background-color: #575782;
+    color: white;
+    font-size: 16px;">
+                                            <td>.</td>
+                                            <td>.</td>
+                                            <td>TOTAL</td>
+                                            <td>{{total_purchase_data.qty}}</td>
+                                            <td>{{total_stock_data.stock}}</td>
+                                            <td>{{total_sale_data.total_sale}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+
+<script src="{% static 'admin_asset/second_dist/js/lightbox.js' %}"></script>
+{% endblock maincontent %}

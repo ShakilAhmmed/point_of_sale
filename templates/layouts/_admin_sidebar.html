@@ -73,21 +73,30 @@
                                     <a href="{% url 'purchase_report' %}"><i class="ik ik-menu"></i><span>Purchase Report</span></a>
                                 </div>
 
-                                <div class="nav-item">
-                                    <a href="{% url 'pos' %}"><i class="ik ik-menu"></i><span>POS</span></a>
+
+                                 <div class="nav-item has-sub">
+                                    <a href="javascript:void(0)"><i class="ik ik-layers"></i><span> Sale </span></a>
+                                    <div class="submenu-content">
+                                      <a href="{% url 'pos' %}" class="menu-item"><span>POS</span></a>
+                                      <a href="{% url 'stock' %}" class="menu-item"><span>Stock</span></a>
+
+                                    </div>
                                 </div>
 
-                                 <div class="nav-item">
-                                    <a href="{% url 'stock' %}"><i class="ik ik-menu"></i><span>Stock</span></a>
+
+
+                                 <div class="nav-item has-sub">
+                                    <a href="javascript:void(0)"><i class="ik ik-layers"></i><span> Reports </span></a>
+                                    <div class="submenu-content">
+                                        <a href="{% url 'products_report' %}" class="menu-item">Products Report</a>
+                                        <a href="" class="menu-item">Product Report</a>
+                                        <a href="" class="menu-item">Product Report</a>
+                                        <a href="" class="menu-item">Product Report</a>
+                                        <a href="" class="menu-item">Product Report</a>
+
+                                    </div>
                                 </div>
 
-
-
-
-
-                                <div class="nav-item">
-                                    <a href="pages/navbar.html"><i class="ik ik-menu"></i><span>Navigation</span> <span class="badge badge-success">New</span></a>
-                                </div>
                             </nav>
                         </div>
                     </div>

@@ -1,0 +1,82 @@
+<div>
+<div id="print">
+    <div>
+        <h1 class="text-center">TMSS DEPARTMENTAL STORE</h1>
+        <p class="text-center">Address: Kazipara ,Tmss Road , Dhaka , Bangladesh</p>
+        <p class="text-center">Phone: 01849942053</p>
+    </div>
+    <div>
+        <p style="margin-left: 10px;">Brand : <span>{{values.brand}}</span></p>
+        <p style="margin-left: 10px;">Status : <span>{{values.status}}</span></p>
+        <p style="margin-left: 10px;">Printing Date : <span>{{today}}</span></p>
+        <p style="margin-left: 10px;">Total Rows : <span>{{count}}</span></p>
+    </div>
+<style>
+table th{
+    height: 35px;
+    background-color: #cae4f1;
+}
+table tr:hover{
+    background-color: #e0eaf3;
+}
+</style>
+    <div>
+        <table border="1" width="100%" cellspacing="0">
+            <tr>
+                <th class="text-center">Product Name</th>
+                <th class="text-center">Product Code</th>
+                <th class="text-center">Vendors/Brand</th>
+                <th class="text-center">Product Purchase Price</th>
+                <th class="text-center">Product Sale Price</th>
+                <th class="text-center">Product Tax</th>
+                <th class="text-center">Product Unit</th>
+                <th class="text-center">Product Status</th>
+                <th class="text-center">Product Type</th>
+                <th class="text-center">Created At</th>
+            </tr>
+        {% if count > 0 %}
+            {% for product_data_value in product_data%}
+                <tr>
+                    <td class="text-center">{{product_data_value.product_name}}</td>
+                    <td class="text-center">{{product_data_value.product_code}}</td>
+                    <td class="text-center">{{product_data_value.product_brand_name}}</td>
+                    <td class="text-center">{{product_data_value.product_cost_price}}</td>
+                    <td class="text-center">{{product_data_value.product_mrp}}</td>
+                    <td class="text-center">{{product_data_value.product_tax}}</td>
+                    <td class="text-center">{{product_data_value.product_unit}}</td>
+                    <td class="text-center">{{product_data_value.product_status}}</td>
+                    <td class="text-center">
+                        {% if product_data_value.is_published == True %}
+                            <span>Published</span>
+                        {% else %}
+                            <span>Draft</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-center">{{product_data_value.created_at}}</td>
+                </tr>
+            {% endfor %}
+        {% else  %}
+            <tr> <td colspan="10" style="height: 40px; text-align: center;color: red;font-size: 15px">No Data Found</td></tr>
+        {% endif %}
+        </table>
+    </div>
+    </div>
+        <br><br>
+        <div class="text-center">
+            <a onclick="printDiv('print')" media='print' target="_blank" ><button  style="width: 80px;height: 35px;"><i class="fa fa-print"></i></button></a>
+        </div>
+    </div>
+</div>
+<script >
+function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+      window.location.reload();
+}
+</script>

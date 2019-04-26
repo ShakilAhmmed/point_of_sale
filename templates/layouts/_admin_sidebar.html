@@ -13,7 +13,7 @@
 
                     <div class="sidebar-content">
                         <div class="nav-container">
-                            <nav id="main-menu-navigation" style="background-color: #4B4C9D;" class="navigation-main">
+                            <nav id="main-menu-navigation" style="background-color: #4B4C9D;height:1550px;" class="navigation-main">
                                 <div class="nav-item active">
                                     <a href="{% url 'backend_home' %}"><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></a>
                                 </div>
@@ -66,12 +66,15 @@
                                     </div>
                                 </div>
 
-                                 <div class="nav-item">
-                                    <a href="{% url 'purchase' %}"><i class="ik ik-menu"></i><span>Purchase</span></a>
+                                 <div class="nav-item has-sub">
+                                    <a href="javascript:void(0)"><i class="ik ik-layers"></i><span> Purchase </span></a>
+                                    <div class="submenu-content">
+                                      <a href="{% url 'purchase' %}" class="menu-item"><span>Purchase</span></a>
+                                      <a href="{% url 'purchase_report' %}" class="menu-item"><span>Purchase Report</span></a>
+
+                                    </div>
                                 </div>
-                                <div class="nav-item">
-                                    <a href="{% url 'purchase_report' %}"><i class="ik ik-menu"></i><span>Purchase Report</span></a>
-                                </div>
+
 
 
                                  <div class="nav-item has-sub">
@@ -91,6 +94,7 @@
                                         <a href="{% url 'products_report' %}" class="menu-item">Products Report</a>
                                         <a href="{% url 'purchase_full_report' %}" class="menu-item">Purchase Report</a>
                                         <a href="{% url 'stock_report' %}" class="menu-item">Stock Report</a>
+                                        <a href="{% url 'sale_report' %}" class="menu-item">Sale Report</a>
 
 
                                     </div>

@@ -8,6 +8,7 @@ from product_template.models import ProductTemplate
 from datetime import date
 from django.db.models import Q
 from purchase.models import PurchaseModel, PurchaseChildModel, PurchasePaymentModel, StockModel
+from pos_section.models import CartProductModel
 from django.db.models import Sum
 
 
@@ -78,19 +79,23 @@ def purchase_full_report(request):
                     Q(product_name__product_mrp__contains=all_data) | Q(
                         product_name__product_description__contains=all_data))
         count = products.count()
-        purchase_sum = products.aggregate(purchase_sum=Sum('product_name__product_cost_price'))
-        sale_sum = products.aggregate(sale_sum=Sum('product_name__product_mrp'))
-        tax_sum = products.aggregate(tax_sum=Sum('product_name__product_tax'))
         quantity_sum = products.aggregate(quantity_sum=Sum('quantity'))
+        purchase_sum = []
+        sale_sum = []
+        tax_sum = []
+        for x in products:
+            purchase_sum.append(x.product_name.product_cost_price * x.quantity)
+            sale_sum.append(x.product_name.product_mrp * x.quantity)
+            tax_sum.append(x.product_name.product_tax * x.quantity)
 
         context = {
             'values': request.POST,
             'product_data': products,
             'today': today,
             'count': count,
-            'purchase_sum': purchase_sum,
-            'sale_sum': sale_sum,
-            'tax_sum': tax_sum,
+            'purchase_sum': sum(purchase_sum),
+            'sale_sum': sum(sale_sum),
+            'tax_sum': sum(tax_sum),
             'quantity_sum': quantity_sum
         }
         return render(request, 'backend/Reports/purchase_reports_show.html', context);
@@ -154,3 +159,26 @@ def stock_report(request):
             'product_data': product_data
         }
         return render(request, 'backend/Reports/stock_report_main.html', context)
+
+
+@login_required
+def sale_report(request):
+    if request.method == 'POST':
+        sale_data = CartProductModel.objects.all()
+        count = sale_data.count()
+        today = date.today()
+        context = {
+            'sale_data': sale_data,
+            'count': count,
+            'today': today,
+            'values': request.POST
+        }
+        return render(request, 'backend/Reports/sale_report_show.html', context)
+    else:
+        company_data = Company.objects.all()
+        product_data = ProductTemplate.objects.all()
+        context = {
+            'company_data': company_data,
+            'product_data': product_data
+        }
+        return render(request, 'backend/Reports/sale_report_main.html', context)

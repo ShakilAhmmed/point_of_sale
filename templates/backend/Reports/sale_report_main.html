@@ -8,7 +8,6 @@
                          <div class="view">#</div>
                          <div class="view">BRAND NAME</div>
                          <div class="view">PRODUCT NAME</div>
-                         <div class="view">PRODUCT STATUS</div>
                          <div class="view">FROM DATE</div>
                          <div class="view">TO DATE</div>
 
@@ -16,13 +15,13 @@
             <div style="display: -webkit-box;">
                          <div class="form-group">
                           <div class="col-sm-2">
-                                <input type="text" class="form-control all_data" style="width: 152px">
+                                <input type="text" class="form-control all_data" style="width: 180px">
                           </div>
                         </div>
 
                          <div class="form-group">
                           <div class="col-sm-2">
-                            <select type="text" class="form-control brand_name" style="width: 152px;margin-left: -10px;">
+                            <select type="text" class="form-control brand_name" style="width: 188px;margin-left: -10px;">
                                 <option value="">--Select--</option>
                                 {% for company_data_value in company_data %}
                                     <option value="{{company_data_value.pk}}">{{company_data_value.company_name}}</option>
@@ -34,7 +33,7 @@
 
                          <div class="form-group">
                           <div class="col-sm-2">
-                            <select type="text" class="form-control product_name" style="width: 152px;margin-left: -15px;">
+                            <select type="text" class="form-control product_name" style="width: 188px;margin-left: -12px;">
                                 <option value="">--Select--</option>
                                 {% for product_data_value in product_data %}
                                     <option value="{{product_data_value.pk}}">{{product_data_value.product_name}}</option>
@@ -45,23 +44,13 @@
 
                       <div class="form-group">
                           <div class="col-sm-2">
-                            <select type="text" class="form-control status" style="width: 152px;margin-left: -12px;">
-                                <option value="">--Select--</option>
-                                <option>Active</option>
-                                <option>Inactive</option>
-                            </select>
+                           <input type="date" class="form-control from_date" style="width: 188px;margin-left: -19px;"/>
                           </div>
                       </div>
 
                       <div class="form-group">
                           <div class="col-sm-2">
-                           <input type="date" class="form-control from_date" style="width: 152px;margin-left: -12px;"/>
-                          </div>
-                      </div>
-
-                      <div class="form-group">
-                          <div class="col-sm-2">
-                            <input type="date" class="form-control to_date" style="width:152px;margin-left: -12px;"/>
+                            <input type="date" class="form-control to_date" style="width: 188px;margin-left: -19px;"/>
                           </div>
                       </div>
 
@@ -87,18 +76,16 @@
 
             var all_data=$(".all_data").val();
             var product_name=$(".product_name").val();
-            var status=$(".status").val();
             var from_date=$(".from_date").val();
             var to_date=$(".to_date").val();
             var brand_name=$(".brand_name").val();
             setTimeout(function(){
                 $.ajax({
-                        url:"{% url 'purchase_full_report' %}",
+                        url:"{% url 'sale_report' %}",
                         type:"POST",
                         data:{
                             'all_data':all_data,
                             'product_name':product_name,
-                            'status':status,
                             'from_date':from_date,
                             'to_date':to_date,
                             'brand_name':brand_name,

@@ -40,7 +40,7 @@ table tr:hover{
             </tr>
         {% if count > 0 %}
             {% for product_data_value in product_data%}
-                <tr>
+                <tr {% if forloop.counter >= 5  and  forloop.counter <= 30 %} style='background-color: #e0eaf3;' {% endif %}>
                     <td class="text-center">{{product_data_value.product_name}}</td>
                     <td class="text-center">{{product_data_value.product_code}}</td>
                     <td class="text-center">{{product_data_value.product_brand_name}}</td>

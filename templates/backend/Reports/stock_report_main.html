@@ -4,29 +4,28 @@
 {% block maincontent %}
 <div class="main-content">
 
-    <div style="display: inline-flex;width: 81%;">
+    <div style="display: inline-flex;">
                          <div class="view">#</div>
                          <div class="view">BRAND NAME</div>
                          <div class="view">PRODUCT NAME</div>
-                         <div class="view">PRODUCT STATUS</div>
-                         <div class="view">FROM DATE</div>
-                         <div class="view">TO DATE</div>
+                         <div class="view"> STATUS</div>
 
     </div>
             <div style="display: -webkit-box;">
                          <div class="form-group">
                           <div class="col-sm-2">
-                                <input type="text" class="form-control all_data" style="width: 180px">
+                                <input type="text" class="form-control all_data" style="width: 200px">
                           </div>
                         </div>
 
                          <div class="form-group">
                           <div class="col-sm-2">
-                            <select type="text" class="form-control brand_name" style="width: 175px;margin-left: -10px;">
+                            <select type="text" class="form-control brand_name" style="width: 200px;margin-left: -13px;">
                                 <option value="">--Select--</option>
-                                {% for company_data_value in company_data %}
-                                    <option value="{{company_data_value.pk}}">{{company_data_value.company_name}}</option>
-                                {% endfor %}
+                                   {% for company_data_value in company_data %}
+                                        <option value="{{company_data_value.pk}}">{{company_data_value.company_name}}</option>
+                                   {% endfor %}
+
                             </select>
                           </div>
                         </div>
@@ -34,9 +33,9 @@
 
                          <div class="form-group">
                           <div class="col-sm-2">
-                            <select type="text" class="form-control product_name" style="width: 175px;margin-left: -12px;">
+                            <select type="text" class="form-control product_name" style="width:  200px;margin-left: -11px;">
                                 <option value="">--Select--</option>
-                                {% for product_data_value in product_data %}
+                                {%  for  product_data_value in product_data %}
                                     <option value="{{product_data_value.pk}}">{{product_data_value.product_name}}</option>
                                 {% endfor %}
                             </select>
@@ -45,25 +44,14 @@
 
                       <div class="form-group">
                           <div class="col-sm-2">
-                            <select type="text" class="form-control status" style="width: 175px;margin-left: -12px;">
+                            <select type="text" class="form-control status" style="width:  200px;margin-left: -15px;">
                                 <option value="">--Select--</option>
-                                <option>Active</option>
-                                <option>Inactive</option>
+                                <option>Sold</option>
+                                <option>In Stock</option>
                             </select>
                           </div>
                       </div>
 
-                      <div class="form-group">
-                          <div class="col-sm-2">
-                           <input type="date" class="form-control from_date" style="width: 175px;margin-left: -12px;"/>
-                          </div>
-                      </div>
-
-                      <div class="form-group">
-                          <div class="col-sm-2">
-                            <input type="date" class="form-control to_date" style="width: 175px;margin-left: -12px;"/>
-                          </div>
-                      </div>
 
                       <div class="form-group">
                           <div class="col-sm-2" style="margin-left: 35px;">
@@ -84,29 +72,24 @@
             $('html,body').css('cursor','wait');
             $("html").css({ 'background-color' : 'black', 'opacity' : '0.5' });
              $(".loader").show();
-
-            var all_data=$(".all_data").val();
-            var product_name=$(".product_name").val();
-            var status=$(".status").val();
-            var from_date=$(".from_date").val();
-            var to_date=$(".to_date").val();
-            var brand_name=$(".brand_name").val();
+             var all_data=$(".all_data").val();
+             var brand_name=$(".brand_name").val();
+             var product_name=$(".product_name").val();
+             var status=$(".status").val();
             setTimeout(function(){
                 $.ajax({
-                        url:"{% url 'purchase_full_report' %}",
+                        url:"{% url 'stock_report' %}",
                         type:"POST",
                         data:{
                             'all_data':all_data,
+                            'brand_name':brand_name,
                             'product_name':product_name,
                             'status':status,
-                            'from_date':from_date,
-                            'to_date':to_date,
-                            'brand_name':brand_name,
                             'csrfmiddlewaretoken':"{{csrf_token}}"
                         },
                         success:function(data) {
                             console.log(data);
-                            $(".report_data_show").html(data);
+                             $(".report_data_show").html(data);
                         }
 
                 });

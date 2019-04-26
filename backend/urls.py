@@ -81,4 +81,5 @@ urlpatterns = [
 
     path('products_report', report_views.products_report, name="products_report"),
     path('purchase_full_report', report_views.purchase_full_report, name="purchase_full_report"),
+    path('stock_report', report_views.stock_report, name="stock_report"),
 ]

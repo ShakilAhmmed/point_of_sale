@@ -7,7 +7,7 @@ from backend.models import Company
 from product_template.models import ProductTemplate
 from datetime import date
 from django.db.models import Q
-from purchase.models import PurchaseModel, PurchaseChildModel, PurchasePaymentModel
+from purchase.models import PurchaseModel, PurchaseChildModel, PurchasePaymentModel, StockModel
 from django.db.models import Sum
 
 
@@ -59,7 +59,6 @@ def purchase_full_report(request):
         from_date = request.POST.get('from_date', None)
         to_date = request.POST.get('to_date', None)
         brand_name = request.POST.get('brand_name', None)
-        pay_status = request.POST.get('pay_status', None)
         products = PurchaseChildModel.objects.all()
         if product_name:
             products = products.filter(product_name=product_name)
@@ -104,3 +103,54 @@ def purchase_full_report(request):
             'company_data': company_data
         }
         return render(request, 'backend/Reports/purchase_report.html', context)
+
+
+@login_required
+def stock_report(request):
+    if request.method == 'POST':
+        today = date.today()
+        all_data = request.POST.get('all_data', None)
+        product_name = request.POST.get('product_name', None)
+        status = request.POST.get('status', None)
+        brand_name = request.POST.get('brand_name', None)
+        stock_data = StockModel.objects.all()
+        if all_data:
+            if all_data.isnumeric():
+                stock_data = stock_data.filter(
+                    Q(product__product_code=all_data) | Q(product__product_mrp_lte=all_data) | Q(
+                        product__product_cost_price_lte=all_data))
+            else:
+                stock_data = stock_data.filter(
+                    Q(product__product_description__contains=all_data) | Q(stock_status__contains=all_data) | Q(
+                        product__product_name=all_data))
+        if brand_name:
+            stock_data = stock_data.filter(product__product_brand_name=brand_name)
+        if product_name:
+            stock_data = stock_data.filter(product__id=product_name)
+        if status:
+            if status == 'Sold':
+                stock_data = stock_data.filter(stock_status='Inactive')
+            else:
+                stock_data = stock_data.filter(stock_status='Active')
+        count = stock_data.count()
+        purchase_sum = stock_data.aggregate(purchase_sum=Sum('product__product_cost_price'))
+        sale_sum = stock_data.aggregate(sale_sum=Sum('product__product_mrp'))
+        tax_sum = stock_data.aggregate(tax_sum=Sum('product__product_tax'))
+        context = {
+            'values': request.POST,
+            'count': count,
+            'today': today,
+            'stock_data': stock_data,
+            'purchase_sum': purchase_sum,
+            'sale_sum': sale_sum,
+            'tax_sum': tax_sum
+        }
+        return render(request, 'backend/Reports/stock_report_show.html', context)
+    else:
+        company_data = Company.objects.all()
+        product_data = ProductTemplate.objects.all()
+        context = {
+            'company_data': company_data,
+            'product_data': product_data
+        }
+        return render(request, 'backend/Reports/stock_report_main.html', context)

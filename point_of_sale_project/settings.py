@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'pos_section.apps.PosSectionConfig',
     'product_template.apps.ProductTemplateConfig',
     'purchase.apps.PurchaseConfig',
+    'django.contrib.humanize'
 ]
 
 MIDDLEWARE = [

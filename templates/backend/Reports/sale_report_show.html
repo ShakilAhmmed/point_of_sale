@@ -1,3 +1,4 @@
+{% load humanize %}
 <div>
 <div id="print">
     <div class="head_sec" style="background-color: #f8fcff;
@@ -30,31 +31,29 @@ table tr:hover{
         <table border="1" width="100%" cellspacing="0">
             <tr>
                 <th class="text-center">Date</th>
+                <th class="text-center">Invoice Id</th>
+                <th class="text-center">Customer</th>
                 <th class="text-center">Product Name</th>
                 <th class="text-center">Product Code</th>
                 <th class="text-center">Vendors/Brand</th>
-                <th class="text-center">Product Purchase Price</th>
                 <th class="text-center">Product Sale Price</th>
-                <th class="text-center">Product Tax</th>
-                <th class="text-center">Product Unit</th>
-                <th class="text-center">Product Status</th>
                 <th class="text-center">Quantity</th>
+                <th class="text-center">Sub Total</th>
             </tr>
         {% if count > 0 %}
-            {% for product_data_value in product_data%}
+            {% for sale_data_value in sale_data%}
                 <tr {% if forloop.counter >= 5  and  forloop.counter <= 30 %} style='background-color: #ebf6ff;' {% endif %}>
-                    <td class="text-center">{{product_data_value.purchase.date}}</td>
-                    <td class="text-center">{{product_data_value.product_name}}</td>
-                    <td class="text-center">{{product_data_value.product_name.product_code}}</td>
-                    <td class="text-center">{{product_data_value.purchase.company_name}}</td>
-                    <td class="text-center">{{product_data_value.product_name.product_cost_price}}</td>
-                    <td class="text-center">{{product_data_value.product_name.product_mrp}}</td>
-                    <td class="text-center">{{product_data_value.product_name.product_tax}}</td>
-                    <td class="text-center">{{product_data_value.product_name.product_unit}}</td>
+                    <td class="text-center">{{sale_data_value.cart_parent.date }}</td>
+                    <td class="text-center">{{sale_data_value.invoice_id}}</td>
+                    <td class="text-center">{{sale_data_value.cart_parent.customer}}</td>
+                    <td class="text-center">{{sale_data_value.product.product_name}}</td>
+                    <td class="text-center">{{sale_data_value.product.product_code}}</td>
+                    <td class="text-center">{{sale_data_value.product.product_brand_name}}</td>
+                    <td class="text-center">{{sale_data_value.product.product_mrp}}</td>
+                    <td class="text-center">{{sale_data_value.product_quantity}}</td>
                     <td class="text-center">
-                        {{product_data_value.product_name.product_status}}
+                        {{sale_data_value.product_subtotal}}
                     </td>
-                    <td class="text-center">{{product_data_value.quantity}}</td>
                 </tr>
             {% endfor %}
             <tr style="border: 0px #a0cff9;
@@ -68,14 +67,13 @@ table tr:hover{
                 <td></td>
                 <td>Total</td>
                 <td></td>
-                <td class="text-center">{{purchase_sum}}</td>
-                <td class="text-center" >{{sale_sum}}</td>
+                <td class="text-center">{{purchase_sum.purchase_sum}}</td>
+                <td class="text-center" >{{sale_sum.sale_sum}}</td>
                 <td class="text-center">{{tax_sum.tax_sum}}</td>
                 <td></td>
                 <td></td>
                 <td class="text-center">{{quantity_sum.quantity_sum}}</td>
             </tr>
-
         {% else  %}
             <tr> <td colspan="10" style="height: 40px; text-align: center;color: red;font-size: 15px">No Data Found</td></tr>
         {% endif %}

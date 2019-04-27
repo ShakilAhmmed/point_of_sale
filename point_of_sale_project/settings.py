@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'pos_section.apps.PosSectionConfig',
     'product_template.apps.ProductTemplateConfig',
     'purchase.apps.PurchaseConfig',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+    'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -52,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'point_of_sale_project.urls'
@@ -153,3 +156,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/backend'
 CART_SESSION_ID = 'cart'
+CORS_ORIGIN_ALLOW_ALL = True

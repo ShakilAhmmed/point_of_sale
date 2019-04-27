@@ -208,3 +208,51 @@ def sale_report(request):
             'product_data': product_data
         }
         return render(request, 'backend/Reports/sale_report_main.html', context)
+
+
+@login_required
+def profit_loss_report(request):
+    if request.method == "POST":
+        all_data = request.POST.get('all_data', None)
+        product_name = request.POST.get('product_name', None)
+        from_date = request.POST.get('from_date', None)
+        to_date = request.POST.get('to_date', None)
+        brand_name = request.POST.get('brand_name', None)
+        profit_loss = StockModel.objects.all()
+        if product_name:
+            profit_loss = profit_loss.filter(product=product_name)
+        if brand_name:
+            profit_loss = profit_loss.filter(product__product_brand_name=brand_name)
+        if from_date and to_date:
+            profit_loss = profit_loss.filter(purchase__date__range=[from_date, to_date])
+        count = profit_loss.count()
+        today = date.today()
+        purchase_sum = profit_loss.aggregate(purchase_sum=Sum('product__product_cost_price'))
+        sale_sum = profit_loss.aggregate(sale_sum=Sum('product__product_mrp'))
+        profit = int(sale_sum.get('sale_sum')) - int(purchase_sum.get('purchase_sum'))
+        tax_sum = profit_loss.aggregate(tax_sum=Sum('product__product_tax'))
+        stock_sale = profit_loss.filter(stock_status='Inactive').aggregate(stock_sale=Sum('product__product_mrp'))
+        stock_purchase = profit_loss.filter(stock_status='Inactive').aggregate(
+            stock_purchase=Sum('product__product_cost_price'))
+        stock_profit = int(stock_sale.get('stock_sale')) - int(stock_purchase.get('stock_purchase'))
+        context = {
+            'profit_loss': profit_loss,
+            'count': count,
+            'today': today,
+            'purchase_sum': purchase_sum,
+            'sale_sum': sale_sum,
+            'tax_sum': tax_sum,
+            'profit': profit,
+            'stock_sale': stock_sale,
+            'stock_purchase': stock_purchase,
+            'stock_profit': stock_profit
+        }
+        return render(request, 'backend/Reports/profit_loss_show.html', context)
+    else:
+        company_data = Company.objects.all()
+        product_data = ProductTemplate.objects.all()
+        context = {
+            'company_data': company_data,
+            'product_data': product_data
+        }
+        return render(request, 'backend/Reports/profit_loss_main.html', context)

@@ -1,0 +1,147 @@
+{% load humanize %}
+<div>
+<div id="print">
+    <div class="head_sec" style="background-color: #f8fcff;
+    padding: 1%;">
+        <h1 class="text-center">TMSS DEPARTMENTAL STORE</h1>
+        <p class="text-center">Address: Kazipara ,Tmss Road , Dhaka , Bangladesh</p>
+        <p class="text-center">Phone: 01849942053</p>
+    </div>
+    <div>
+        <p style="margin-left: 10px;">Brand : <span>{{values.brand_name}}</span></p>
+        <p style="margin-left: 10px;">Product Name : <span>{{values.product_name}}</span></p>
+        <p style="margin-left: 10px;">Status : <span>{{values.status}}</span></p>
+        <p style="margin-left: 10px;">Printing Date : <span>{{today}}</span></p>
+        <p style="margin-left: 10px;">Total Rows : <span>{{count}}</span></p>
+    </div>
+<style>
+table th{
+    height: 35px;
+    background-color: #cae4f1;
+}
+table tr:hover{
+    background-color: #e0eaf3;
+}
+.head_sec:hover{
+    background-color: #d3ecff;
+}
+</style>
+    <div>
+        <table border="1" width="100%" style="line-height: 15px;" cellspacing="0">
+            <tr>
+                <th class="text-center">Stock Code</th>
+                <th class="text-center">Product Name</th>
+                <th class="text-center">Product Code</th>
+                <th class="text-center">Vendors/Brand</th>
+                <th class="text-center">Product Purchase Price</th>
+                <th class="text-center">Product Sale Price</th>
+                <th class="text-center">Product Tax</th>
+                <th class="text-center">Product Unit</th>
+                <th class="text-center">Product Status</th>
+                <th class="text-center">Stock Date</th>
+            </tr>
+        {% if count > 0 %}
+            {% for profit_loss_data in profit_loss%}
+                <tr {% if forloop.counter >= 5  and  forloop.counter <= 30 %} style='background-color: #e0eaf3;' {% endif %}>
+                    <td class="text-center">{{profit_loss_data.stock_code}}</td>
+                    <td class="text-center">{{profit_loss_data.product.product_name}}</td>
+                    <td class="text-center">{{profit_loss_data.product.product_code}}</td>
+                    <td class="text-center">{{profit_loss_data.product.product_brand_name}}</td>
+                    <td class="text-center">{{profit_loss_data.product.product_cost_price}}</td>
+                    <td class="text-center">{{profit_loss_data.product.product_mrp}}</td>
+                    <td class="text-center">{{profit_loss_data.product.product_tax}}</td>
+                    <td class="text-center">{{profit_loss_data.product.product_unit}}</td>
+                    <td class="text-center">
+                        {% if profit_loss_data.stock_status == 'Active'%}
+                            <span style="color: green;">In Stock</span>
+                        {% else %}
+                            <span style="color: red;">Sold</span>
+                         {% endif  %}
+                    </td>
+                    <td class="text-center">{{profit_loss_data.created_at}}</td>
+                </tr>
+            {% endfor %}
+            <tr style="border: 0px #a0cff9;
+    height: 35px;
+    background-color: #a0c8ec;
+    font-size: 13px;
+    color: #0d3c0d;
+    font-weight: 900;
+    font-family: -webkit-body;">
+                <td></td>
+                <td></td>
+                <td style="color: black;">Total</td>
+                <td></td>
+                <td class="text-center">Purchase : {{purchase_sum.purchase_sum | intcomma}}</td>
+                <td class="text-center" >Sale    : {{sale_sum.sale_sum | intcomma}}</td>
+                <td class="text-center">{{tax_sum.tax_sum | intcomma }}</td>
+                <td></td>
+                <td class="text-center">Total : {{count}}</td>
+                <td></td>
+
+            </tr>
+
+            <tr style="border: 0px #a0cff9;
+    height: 35px;
+    background-color: #a0c8ec;
+    font-size: 13px;
+    color: #0d3c0d;
+    font-weight: 900;
+    font-family: -webkit-body;">
+                <td></td>
+                <td></td>
+                <td style="color: black;" >Estimate Profit And Loss </td>
+                <td></td>
+                <td class="text-center">Estimate Sale    : {{sale_sum.sale_sum | intcomma}}</td>
+                <td class="text-center" >Total Purchase : {{purchase_sum.purchase_sum | intcomma}}</td>
+                <td class="text-center">Estimate Profit    : {{profit | intcomma}}</td>
+                <td></td>
+                <td class="text-center"></td>
+                <td></td>
+
+            </tr>
+
+            <tr style="border: 0px #a0cff9;
+    height: 35px;
+    background-color: #a0c8ec;
+    font-size: 13px;
+    color: #0d3c0d;
+    font-weight: 900;
+    font-family: -webkit-body;">
+                <td></td>
+                <td></td>
+                <td>Profit And Loss </td>
+                <td></td>
+                <td class="text-center">Stock Sale    : {{stock_sale.stock_sale | intcomma}}</td>
+                <td class="text-center" >Stock Purchase : {{stock_purchase.stock_purchase | intcomma}}</td>
+                <td class="text-center">Profit    : {{stock_profit | intcomma}}</td>
+                <td></td>
+                <td class="text-center"></td>
+                <td></td>
+
+            </tr>
+        {% else  %}
+            <tr> <td colspan="10" style="height: 40px; text-align: center;color: red;font-size: 15px">No Data Found</td></tr>
+        {% endif %}
+        </table>
+    </div>
+    </div>
+        <br><br>
+        <div class="text-center">
+            <a onclick="printDiv('print')" media='print' target="_blank" ><button  style="width: 80px;height: 35px;"><i class="fa fa-print"></i></button></a>
+        </div>
+    </div>
+</div>
+<script >
+function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+      window.location.reload();
+}
+</script>

@@ -122,8 +122,8 @@ def stock_report(request):
         if all_data:
             if all_data.isnumeric():
                 stock_data = stock_data.filter(
-                    Q(product__product_code=all_data) | Q(product__product_mrp_lte=all_data) | Q(
-                        product__product_cost_price_lte=all_data))
+                    Q(product__product_code=all_data) | Q(product__product_mrp__lte=all_data) | Q(
+                        product__product_cost_price__lte=all_data))
             else:
                 stock_data = stock_data.filter(
                     Q(product__product_description__contains=all_data) | Q(stock_status__contains=all_data) | Q(
@@ -164,14 +164,40 @@ def stock_report(request):
 @login_required
 def sale_report(request):
     if request.method == 'POST':
+        all_data = request.POST.get('all_data', None)
+        product_name = request.POST.get('product_name', None)
+        brand_name = request.POST.get('brand_name', None)
+        from_date = request.POST.get('from_date', None)
+        to_date = request.POST.get('to_date', None)
         sale_data = CartProductModel.objects.all()
         count = sale_data.count()
         today = date.today()
+        if product_name:
+            sale_data = sale_data.filter(product=product_name)
+        if brand_name:
+            sale_data = sale_data.filter(product__product_brand_name=brand_name)
+        if from_date and to_date:
+            sale_data = sale_data.filter(cart_parent__date__range=[from_date, to_date])
+        if all_data:
+            if all_data.isnumeric():
+                sale_data = sale_data.filter(
+                    Q(invoice_id=all_data) | Q(product_price__lte=all_data) | Q(product_quantity__lte=all_data))
+            else:
+                sale_data = sale_data.filter(product__product_name__contains=all_data)
+
+        sale_sum = []
+        for x in sale_data:
+            sale_sum.append(int(x.product.product_mrp) * int(x.product_quantity))
+        sub_total = sale_data.aggregate(sub_total_sum=Sum('product_subtotal'))
+        quantity = sale_data.aggregate(quantity=Sum('product_quantity'))
         context = {
             'sale_data': sale_data,
             'count': count,
             'today': today,
-            'values': request.POST
+            'values': request.POST,
+            'sale_sum': sum(sale_sum),
+            'sub_total': sub_total,
+            'quantity': quantity
         }
         return render(request, 'backend/Reports/sale_report_show.html', context)
     else:

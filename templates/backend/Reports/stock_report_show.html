@@ -72,12 +72,13 @@ table tr:hover{
                 <td></td>
                 <td>Total</td>
                 <td></td>
-                <td class="text-center">Purcahse : {{purchase_sum.purchase_sum | intcomma}}</td>
+                <td class="text-center">Purchase : {{purchase_sum.purchase_sum | intcomma}}</td>
                 <td class="text-center" >Sale    : {{sale_sum.sale_sum | intcomma}}</td>
                 <td class="text-center">{{tax_sum.tax_sum | intcomma }}</td>
                 <td></td>
+                <td class="text-center">Total : {{count}}</td>
                 <td></td>
-                <td class="text-center"></td>
+
             </tr>
         {% else  %}
             <tr> <td colspan="10" style="height: 40px; text-align: center;color: red;font-size: 15px">No Data Found</td></tr>

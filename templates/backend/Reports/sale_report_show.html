@@ -67,12 +67,11 @@ table tr:hover{
                 <td></td>
                 <td>Total</td>
                 <td></td>
-                <td class="text-center">{{purchase_sum.purchase_sum}}</td>
-                <td class="text-center" >{{sale_sum.sale_sum}}</td>
-                <td class="text-center">{{tax_sum.tax_sum}}</td>
-                <td></td>
-                <td></td>
-                <td class="text-center">{{quantity_sum.quantity_sum}}</td>
+                <td class="text-center"></td>
+                <td class="text-center" ></td>
+                <td class="text-center">Product Sale Price : {{sale_sum}}</td>
+                <td class="text-center">Quantity : {{quantity.quantity}}</td>
+                <td class="text-center">Sale : {{sub_total.sub_total_sum}}</td>
             </tr>
         {% else  %}
             <tr> <td colspan="10" style="height: 40px; text-align: center;color: red;font-size: 15px">No Data Found</td></tr>

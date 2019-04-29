@@ -1,4 +1,6 @@
 from django.db import models
+
+
 # Create your models here.
 class Category(models.Model):
     category_name = models.CharField(max_length=50, unique=True)
@@ -13,7 +15,7 @@ class Category(models.Model):
 
 
 class SubCategory(models.Model):
-    category_name = models.ForeignKey(Category, on_delete=models.CASCADE,default=1)
+    category_name = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
     sub_category_name = models.CharField(max_length=50, unique=True)
     sub_category_code = models.IntegerField(unique=True)
     sub_category_description = models.TextField()
@@ -36,3 +38,13 @@ class Company(models.Model):
 
     def __str__(self):
         return self.company_name
+
+
+class Setup(models.Model):
+    company_name = models.CharField(max_length=100)
+    company_email = models.EmailField(max_length=100)
+    company_address = models.TextField()
+    company_phone = models.CharField(max_length=20)
+    company_logo = models.ImageField(upload_to="setup/", default='company/blank.png')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

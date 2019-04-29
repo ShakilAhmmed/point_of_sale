@@ -13,6 +13,7 @@ from reports import views as report_views
 
 urlpatterns = [
     path('', views.backend_home, name="backend_home"),
+    path('setup/<int:pk>', views.setup, name="setup"),
     path('create_admin', rbac_views.create_admin, name="create_admin"),
 
     # Category

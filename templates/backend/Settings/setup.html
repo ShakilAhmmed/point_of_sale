@@ -1,0 +1,61 @@
+{% extends 'backend/index.html' %}
+{% block title %}Admin|Brand{% endblock title %}
+{% block maincontent %}
+ <div class="main-content">
+                        <!-- Button trigger modal -->
+                 <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form class="forms-sample" action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                            <div class="form-group">
+                                                <label for="{{form.company_name.id_for_label}}">{{form.company_name.label}}</label>
+                                                {{form.company_name}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.company_name.errors}}</div>
+                                            </div>
+
+                                             <div class="form-group">
+                                                <label for="{{form.company_email.id_for_label}}">{{form.company_email.label}}</label>
+                                                  {{form.company_email}}
+                                                 <div class="text-danger" style="font-size: 14px;">{{form.company_email.errors}}</div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="{{form.company_phone.id_for_label}}">{{form.company_phone.label}}</label>
+                                                  {{form.company_phone}}
+                                                 <div class="text-danger" style="font-size: 14px;">{{form.company_phone.errors}}</div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="{{form.company_address.id_for_label}}">{{form.company_address.label}}</label>
+                                                {{form.company_address}}
+                                                <div class="text-danger" style="font-size: 14px;">{{form.company_address.errors}}</div>
+                                            </div>
+
+
+
+
+                                            <div>
+                                                <div class="form-group">
+                                                <label for="{{form.company_logo.id_for_label}}">{{form.company_logo.label}}</label>
+                                                    <input type="file" name="company_logo" id="inputFile">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleCoverImage"></label>
+                                                    <img id="image_upload_preview" {% if image %} src="{{image}}" {% else %} src="http://placehold.it/100x100" {% endif%} alt="your image" />
+                                                </div>
+                                            </div>
+                                            <div class="text-center">
+                                                 <button type="submit" class="btn btn-success mr-2">Save</button>
+                                             </div>
+                                         </form>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+{% endblock maincontent %}

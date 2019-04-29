@@ -2,9 +2,9 @@
 <div id="print">
     <div class="head_sec" style="background-color: #f8fcff;
     padding: 1%;">
-        <h1 class="text-center">TMSS DEPARTMENTAL STORE</h1>
-        <p class="text-center">Address: Kazipara ,Tmss Road , Dhaka , Bangladesh</p>
-        <p class="text-center">Phone: 01849942053</p>
+        <h1 class="text-center">{{settings.company_name | upper }}</h1>
+        <p class="text-center">Address: {{settings.company_address }}</p>
+        <p class="text-center">Phone: {{settings.company_phone }}</p>
     </div>
     <div>
         <p style="margin-left: 10px;">Brand : <span>{{values.brand}}</span></p>

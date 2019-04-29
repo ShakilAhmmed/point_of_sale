@@ -2,9 +2,9 @@
  <div class="page-wrap">
                 <div class="app-sidebar colored">
                     <div class="sidebar-header" style="height: 120px !important;">
-                        <a class="header-brand" href="index.html">
+                        <a class="header-brand" href="{% url 'backend_home' %}">
                             <div class="logo-img">
-                               <img height="100px" style="margin-left: 132%;" src="{% static 'admin_asset/img/auth/logo.png'%}" class="header-brand-img" alt="lavalite">
+                               <img height="100px" style="margin-left: 132%;" {% if settings.company_logo %}  src="{{settings.company_logo.url}}" {% else %} src="{% static 'admin_asset/img/auth/logo.png'%}" {% endif %}class="header-brand-img" alt="lavalite">
                             </div>
                         </a>
                         <button type="button" class="nav-toggle"><i data-toggle="expanded" class="ik ik-toggle-right toggle-icon"></i></button>
@@ -99,6 +99,9 @@
 
 
                                     </div>
+                                </div>
+                                 <div class="nav-item">
+                                    <a href="{% url 'setup' 1 %}"><i class="ik ik-menu"></i><span>Setup</span></a>
                                 </div>
 
                             </nav>

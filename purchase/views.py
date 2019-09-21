@@ -64,7 +64,7 @@ def purchase(request):
 def purchase_report(request):
     purchase_data_grp = PurchaseChildModel.objects.values('purchase').annotate(total=Sum('sub_total'),
                                                                                qty=Sum('quantity'))
-    purchase_main_data = PurchaseChildModel.objects.all()
+    purchase_main_data = PurchaseChildModel.objects.select_related().all()
     purchase_payment_data = PurchasePaymentModel.objects.all()
     context = {
         'purchase_data_grp': purchase_data_grp,

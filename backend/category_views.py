@@ -7,7 +7,8 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 
 from point_of_sale_project.utils import render_to_pdf
-from .models import Category
+
+from .models import Category, Company
 from .forms.category import CategoryForm
 from datetime import date
 import csv
@@ -24,11 +25,10 @@ def category(request):
     else:
         form = CategoryForm()
     category_data = Category.objects.order_by('-id')
-    total_data = Category.objects.count()
     context = {
         'form': form,
         'category_data': category_data,
-        'total_data': total_data
+        'total_data': category_data.count()
     }
     return render(request, 'backend/Category/category.html', context)
 

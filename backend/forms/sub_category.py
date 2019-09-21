@@ -7,9 +7,8 @@ class SubCategoryForm(forms.ModelForm):
         model = SubCategory
         fields = "__all__"
         choices = (('Active', 'Active'), ('Inactive', 'Inactive'))
-        category = Category.objects.all()
         widgets = {
-            'category_name': forms.Select(choices=category, attrs={'class': 'form-control'}),
+            'category_name': forms.Select(attrs={'class': 'form-control'}),
             'sub_category_name': forms.TextInput(attrs={'class': 'form-control'}),
             'sub_category_code': forms.NumberInput(attrs={'class': 'form-control'}),
             'sub_category_description': forms.Textarea(attrs={'class': 'form-control'}),

@@ -11,7 +11,7 @@ import  csv
 
 @login_required
 def sub_category(request):
-    sub_category_data = SubCategory.objects.all()
+    sub_category_data = SubCategory.objects.select_related().all()
     if request.method == 'POST':
         form = SubCategoryForm(request.POST)
         if form.is_valid():

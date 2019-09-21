@@ -60,7 +60,7 @@ def product_template(request):
 
 @login_required
 def product_template_report(request):
-    product_template = ProductTemplate.objects.order_by('-id')
+    product_template = ProductTemplate.objects.select_related().order_by('-id')
     context = {
         'product_template': product_template
     }

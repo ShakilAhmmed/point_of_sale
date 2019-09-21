@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'purchase.apps.PurchaseConfig',
     'django.contrib.humanize',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'point_of_sale_project.urls'
@@ -149,6 +151,12 @@ DEFAULT_FROM_EMAIL = '(Point Of Sale) Support <no-reply@pos.com>'
 EMAIL_HOST_USER = 'mahadih842@gmail.com'
 EMAIL_HOST_PASSWORD = '01733776323'
 EMAIL_USE_TLS = True
+
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]
 
 # MEDIA
 MEDIA_URL = '/media/'

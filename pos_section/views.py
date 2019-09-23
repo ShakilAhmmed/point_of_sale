@@ -18,15 +18,15 @@ from .models import CartParentModel, CartPaymentModel, CartProductModel
 @login_required
 def pos(request):
     customer = CustomerModel.objects.filter(customer_status='Active')
-    products = ProductTemplate.objects.filter(product_status='Active', is_published=True)
+    products = ProductTemplate.objects.select_related().filter(product_status='Active', is_published=True)
     if request.method == "GET" and request.GET.get('search'):
         search_key = request.GET.get('search')
         if search_key.isnumeric():
             # products = ProductTemplate.objects.filter(Q(product_mrp__lte=search_key) | Q(product_tax__lte=search_key))
-            products = ProductTemplate.objects.filter(product_code__contains=search_key, product_status='Active',
+            products = products.filter(product_code__contains=search_key, product_status='Active',
                                                       is_published=True)
         else:
-            products = ProductTemplate.objects.filter(product_name__contains=search_key, product_status='Active',
+            products = products.filter(product_name__contains=search_key, product_status='Active',
                                                       is_published=True)
 
     context = {

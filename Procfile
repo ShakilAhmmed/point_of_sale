@@ -1,1 +1,1 @@
-web: point_of_sale_project.wsgi --log-file -
+web: gunicorn point_of_sale_project.wsgi --log-file -

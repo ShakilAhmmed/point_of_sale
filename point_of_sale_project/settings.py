@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+import django_heroku 
+django_heroku.settings(locals())
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -35,12 +36,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'backend',
-    'customer_supplier',
-    'login_panel',
-    'pos_section',
-    'product_template',
-    'purchase',
+    'backend.apps.BackendConfig',
+    'customer_supplier.apps.CustomerSupplierConfig',
+    'login_panel.apps.LoginPanelConfig',
+    'pos_section.apps.PosSectionConfig',
+    'product_template.apps.ProductTemplateConfig',
+    'purchase.apps.PurchaseConfig',
     'django.contrib.humanize',
     'rest_framework',
     'corsheaders',

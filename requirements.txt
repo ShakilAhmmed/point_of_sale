@@ -1,6 +1,6 @@
 Django==2.2
 pytz==2018.9
-sqlparse==0.3.0
+sqlparse==0.4.4
 xhtml2pdf
 gunicorn
 whitenoise
